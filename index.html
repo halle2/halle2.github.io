@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Halle Hwang — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Instrument+Serif:ital@0;1&family=DM+Serif+Text:ital@0;1&family=Waiting+for+the+Sunrise&display=swap;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@300;400;500&family=Alice&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --yellow-800: #92400e;
+      --orange-100: #ffedd5;
+      --amber-500: #f59e0b;
+      --amber-100: #fef3c7;
+      --sky-700: #0369a1;
+      --sky-900: #0c4a6e;
+      --zinc-300: #d4d4d8;
+      --zinc-400: #a1a1aa;
+      --stone-200: #e7e5e4;
+      --stone-500: #78716c;
+      --white: #fff;
+      --black: #000;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--white);
+      min-height: 100vh;
+      font-family: 'Cardo', serif;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--white);
+      border-bottom: 1px solid var(--zinc-400);
+      height: 72px;
+      display: flex;
+      align-items: center;
+      padding: 0 32px;
+      gap: 0;
+    }
+
+    .nav-name {
+      font-family: 'Cardo', serif;
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--black);
+      display: inline-block;
+      transform: rotate(-7.24deg);
+      transform-origin: top left;
+      margin-right: auto;
+      margin-top: 4px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'Cardo', serif;
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--black);
+      text-decoration: none;
+      transition: opacity .2s;
+    }
+
+    .nav-links a:hover { opacity: .6; }
+
+    /* ── HERO ── */
+    .hero {
+      display: grid;
+      grid-template-columns: 58% 42%;
+      min-height: 580px;
+    }
+
+    .hero-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .hero-right {
+      background: var(--orange-100);
+      padding: 104px 56px 56px 56px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .hero-name {
+      font-family: 'Cardo', serif;
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--yellow-800);
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+
+    .hero-title {
+      font-family: 'Cardo', serif;
+      font-size: 36px;
+      font-weight: 400;
+      color: var(--yellow-800);
+      line-height: 1.25;
+      margin-bottom: 36px;
+    }
+
+    .hero-bio {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--yellow-800);
+      line-height: 1.6;
+      max-width: 380px;
+    }
+
+    /* ── MARQUEE BANNER ── */
+    .marquee-wrap {
+      background: var(--sky-700);
+      height: 128px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+    }
+
+    .marquee-track {
+      display: flex;
+      white-space: nowrap;
+      animation: marquee 14s linear infinite;
+      gap: 0;
+    }
+
+    .marquee-track span {
+      font-family: 'Cardo', serif;
+      font-size: 30px;
+      font-weight: 400;
+      color: var(--white);
+      text-transform: uppercase;
+      padding: 0 28px;
+      letter-spacing: .04em;
+    }
+
+    @keyframes marquee {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ── PROJECTS ── */
+    .project-card {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      min-height: 513px;
+      padding: 56px clamp(32px, 7vw, 100px);
+      gap: 48px;
+    }
+
+    .project-card.reverse { direction: rtl; }
+    .project-card.reverse > * { direction: ltr; }
+    .project-card.reverse .project-text {  padding-left: 136px; }
+
+
+    .project-img {
+      width: 320px;
+      height: 320px;
+      object-fit: cover;
+      border-radius: 30px;
+      border: 8px solid var(--white);
+      display: block;
+      justify-self: center;
+    }
+
+    .project-img.outline-style {
+      border: none;
+      outline: 8px solid var(--white);
+    }
+
+    .project-img.no-img {
+      background: var(--white);
+      border: none;
+    }
+
+    .project-text { display: flex; flex-direction: column; gap: 16px; }
+
+    .project-title {
+      font-size: 30px;
+      font-weight: 300;
+      line-height: 1.2;
+    }
+
+    .project-desc {
+      font-size: 15px;
+      font-weight: 300;
+      line-height: 1.55;
+      max-width: 380px;
+    }
+
+    /* Card colours */
+    .card-amber  { background: var(--amber-500); }
+    .card-zinc   { background: #B17FBA; }
+    .card-stone  { background: #7F915B }
+    .card-sky    { background: #1B74AF }
+
+    .card-amber  .project-title { font-family: 'DM Sans', sans-serif; font-weight: 300; color: var(--amber-100); }
+    .card-amber  .project-desc  { font-family: 'DM Sans', sans-serif; color: var(--white); }
+
+    .card-zinc   .project-title { font-family: 'Alice', serif; color: var(--stone-200); font-weight: 400; }
+    .card-zinc   .project-desc  { font-family: 'DM Sans', sans-serif; color: var(--stone-200); font-weight: 400; }
+
+    .card-stone  .project-title { font-family: 'DM Serif Text', serif; color: var(--stone-200); font-weight: 400; }
+    .card-stone  .project-desc  { font-family: 'DM Sans', sans-serif; color: var(--stone-200); font-weight: 400; }
+
+    .card-sky    .project-title { font-family: 'DM Mono', monospace; color: var(--stone-200); font-weight: 400; }
+    .card-sky    .project-desc  { font-family: 'DM Sans', sans-serif; color: var(--stone-200); font-weight: 400; }
+
+    /* ── PHOTO GALLERY ── */
+    .gallery-section {
+      padding: 80px 0 120px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      position: relative;
+      overflow: hidden;
+      background: var(--white);
+      min-height: 520px;
+    }
+
+    .gallery-cluster {
+      position: relative;
+      width: 600px;
+      height: 380px;
+      margin: 0 auto;
+    }
+
+    .photo-item {
+      position: absolute;
+    }
+
+    .photo-item img {
+      display: block;
+      object-fit: cover;
+      border: 6px solid var(--white);
+      box-shadow: 0 4px 20px rgba(0,0,0,.12);
+    }
+    .photo-item img.btn-overlay {
+      border: none !important;
+      box-shadow: none !important;
+    }
+ 
+
+    .photo-item .caption {
+      font-size: 28px;
+      font-weight: 300;
+      color: var(--black);
+      margin-top: 8px;
+      text-align: center;
+    }
+
+    /* Copenhagen — left, rotated -3deg */
+    .photo-left { left: 0; top: 80px; transform: rotate(-3deg); }
+    .photo-left img { width: 155px; height: 207px; }
+
+    /* Art — center top, no rotation */
+    .photo-center { left: 50%; top: 0; transform: translateX(-50%); }
+    .photo-center img { width: 194px; height: 200px; }
+
+    /* Yosemite — right, +3deg */
+    .photo-right { right: 0; top: 60px; transform: rotate(3deg); }
+    .photo-right img { width: 189px; height: 252px; }
+
+    /* decorative circles */
+    .dot {
+      position: absolute;
+      background: var(--zinc-300);
+      border-radius: 50%;
+    }
+
+    /* ── CONTACT ── */
+    .contact-section {
+      padding: 80px clamp(32px, 15vw, 189px) 120px;
+      background: var(--white);
+    }
+
+    .contact-heading {
+      font-family: 'Instrument Serif', serif;
+      font-size: 24px;
+      font-weight: 400;
+      color: var(--black);
+      margin-bottom: 40px;
+    }
+
+    .contact-links {
+      display: flex;
+      gap: 48px;
+    }
+
+    .contact-links a {
+      font-family: 'Instrument Serif', serif;
+      font-size: 24px;
+      font-weight: 400;
+      color: var(--black);
+      text-decoration: none;
+      border-bottom: 1px solid var(--black);
+      padding-bottom: 2px;
+      transition: opacity .2s;
+    }
+
+    .contact-links a:hover { opacity: .5; }
+
+    /* ── VIDEO EMBED ── */
+    .video-wrapper {
+      position: relative;
+      width: 420px;
+      aspect-ratio: 4 / 3;
+      border-radius: 20px;
+      overflow: hidden;
+      outline: 8px solid var(--white);
+      cursor: pointer;
+      justify-self: center;
+      flex-shrink: 0;
+    }
+ 
+    .project-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      border-radius: 20px;
+    }
+
+    .video-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,.18);
+      color: var(--white);
+      font-family: 'Cardo', serif;
+      font-size: 16px;
+      letter-spacing: .08em;
+      pointer-events: none;
+      transition: opacity .3s;
+    }
+ 
+    .video-wrapper:hover .video-placeholder {
+      opacity: 0;
+    }
+ 
+    .video-placeholder span {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+ 
+    .video-placeholder span::before {
+      content: '';
+      display: inline-block;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 8px 0 8px 16px;
+      border-color: transparent transparent transparent white;
+    }
+ 
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <span class="nav-name">Halle Hwang</span>
+    <ul class="nav-links">
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#gallery">Copenhagen</a></li>
+      <li><a href="#gallery">Yosemite</a></li>
+      <li><a href="#gallery">Art</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <img class="hero-image" src="img/curryboardwalk.jpeg" alt="Halle Hwang" />
+    <div class="hero-right">
+      <div class="hero-name">Halle Hwang</div>
+      <div class="hero-title">UI/UX Designer &amp;<br/>Creative Strategist</div>
+      <p class="hero-bio">
+        I recently graduated from the University of Washington with a degree in Informatics. 
+        Though I do enjoy working with data and statistics, my main passion lies in UI/UX design and art!
+        <br/><br/>
+        I spent most of my college years exploring who I was as an individual and going on as many adventures as I could. 
+        Along with my projects, I'll be highlighting some of my favorite chapters&mdash;a semester in Copenhagen and a summer in Yosemite.
+      </p>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <span>My Projects</span><span>✦</span>
+      <span>My Projects</span><span>✦</span>
+      <span>My Projects</span><span>✦</span>
+      <span>My Projects</span><span>✦</span>
+      <span>My Projects</span><span>✦</span>
+      <span>My Projects</span><span>✦</span>
+
+      <span>My Projects</span><span>✦</span>
+      <span>My Projects</span><span>✦</span>
+      <span>My Projects</span><span>✦</span>
+      <span>My Projects</span><span>✦</span>
+      <span>My Projects</span><span>✦</span>
+      <span>My Projects</span><span>✦</span>
+    </div>
+  </div>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+
+    <!-- Cafe Web Design -->
+    <div class="project-card card-amber">
+      <img class="project-img" src="img/matchacover.JPG" alt="Cafe Web Design" />
+      <div class="project-text">
+        <div class="project-title">Cafe Web Design</div>
+        <p class="project-desc">Designed a one-page cafe experience centered on storytelling, warmth, and brand identity. By combining imagery, menu content, a mission statement, and a meet-the-owner section, the project explores how thoughtful web design can turn casual visitors into engaged guests.</p>
+      </div>
+    </div>
+
+    <!-- Date Drop -->
+    <div class="project-card card-zinc reverse">
+      <div class="video-wrapper"
+           onmouseenter="this.querySelector('video').play()"
+           onmouseleave="this.querySelector('video').pause()">
+        <video
+          class="project-video"
+          <video src="img/realconnection.MOV" ...>
+
+          muted
+          loop
+          playsinline
+          preload="metadata"
+        ></video>
+        <div class="video-placeholder">
+          <span>Hover to play</span>
+        </div>
+      </div>
+      <!-- <img class="project-img outline-style" src="img/datedrop1.jpeg" alt="Date Drop" /> -->
+      <div class="project-text">
+        <div class="project-title">Date Drop</div>
+        <p class="project-desc">Created short-form content for Date Drop's UW launch and provided consultation for branding and marketing.<br/>
+          <br/>Interviewed three couples from UW and shared their stories</p>
+      </div>
+    </div>
+
+    <!-- Dental Website Redesign -->
+    <div class="project-card card-stone">
+      <img class="project-img" src="img/toothbrush.jpg" alt="Dental Website Redesign" />
+      <div class="project-text">
+        <div class="project-title">Dental Website Redesign</div>
+        <p class="project-desc">Partnered with a local dentistry to redesign its website, 
+          improving usability, visual appeal, and overall patient experience. 
+          Conducted user research and collaborated with the client to ensure the new design aligned with both patient needs and practice goals.</p>
+      </div>
+    </div>
+
+    <!-- Tentative -->
+    <div class="project-card card-sky reverse">
+      <div class="project-img no-img" style="border-radius:30px;"></div>
+      <div class="project-text">
+        <div class="project-title">Tentative</div>
+        <p class="project-desc">A website concept focused on helping seasonal employees build trust through transparency, storytelling, and community connection.
+           The design highlights clarity, warmth, and human stories at every turn.</p>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- PHOTO GALLERY -->
+  <section id="gallery" class="gallery-section">
+    <div class="gallery-cluster">
+
+
+      <!-- Copenhagen -->
+      <div class="photo-item photo-left">
+        <img src="img/kastellet.jpeg" alt="Copenhagen" />
+<img src="img/button_amber.png" alt="button" class="btn-overlay" style="position:absolute;top:-18px;right:-5px;width:44px;height:44px;object-fit:contain;z-index:2;" />    
+    <div class="caption" style="font-family:'Waiting for the Sunrise',sans-serif;transform:rotate(-3deg);transform-origin:center top;">Copenhagen</div>
+      </div>
+
+      <!-- Art -->
+      <div class="photo-item photo-center">
+        <img src="img/pave.jpeg" alt="Art" />
+        <img src="img/button1.png" alt="button" class="btn-overlay" style="position:absolute;top:-18px;left:-18px;width:44px;height:44px;object-fit:contain;z-index:2;" />   
+        <div class="caption" style="font-family:'Waiting for the Sunrise',sans-serif;">Art</div>
+      </div>
+
+      <!-- Yosemite -->
+      <div class="photo-item photo-right">
+        <img src="img/northdome.jpeg" alt="Yosemite" />
+        <img src="img/button_dark_brown.png" alt="button" class="btn-overlay" style="position:absolute;top:-18px;left:30px;width:44px;height:44px;object-fit:contain;z-index:2;" />    
+                <img src="img/button2.png" alt="button" class="btn-overlay" style="position:absolute;top:200px;left:-50px;width:44px;height:44px;object-fit:contain;z-index:2;" />    
+
+        <div class="caption" style="font-family:'Waiting for the Sunrise',sans-serif;transform:rotate(3deg);transform-origin:center top;">Yosemite</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact-section">
+    <div class="contact-heading">Let's keep in touch</div>
+    <div class="contact-links">
+      <a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="mailto:halle@example.com">Email</a>
+    </div>
+  </section>
+
+</body>
+</html>
