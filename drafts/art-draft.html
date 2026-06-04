@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Art — Halle Hwang</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Radley:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --zinc-400: #a1a1aa;
+      --white: #fff;
+      --black: #000;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--white);
+      font-family: 'Cardo', serif;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--white);
+      border-bottom: 1px solid var(--zinc-400);
+      height: 71px;
+      display: flex;
+      align-items: center;
+      padding: 0 32px;
+    }
+
+    .nav-name {
+      font-family: 'Cardo', serif;
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--black);
+      display: inline-block;
+      transform: rotate(-9.61deg);
+      transform-origin: top left;
+      margin-right: auto;
+      margin-top: 6px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'Cardo', serif;
+      font-size: 16px;
+      color: var(--black);
+      text-decoration: none;
+      transition: opacity .2s;
+    }
+
+    .nav-links a:hover { opacity: .5; }
+    .nav-links a.active { font-weight: 700; }
+
+    /* ── HERO TITLE ── */
+    .art-hero {
+      padding: 80px 131px 48px;
+    }
+
+    .art-hero h1 {
+      font-family: 'Radley', serif;
+      font-size: 72px;
+      font-weight: 400;
+      color: var(--black);
+      line-height: 1;
+    }
+
+    /* ── MASONRY GRID ── */
+    .gallery-grid {
+      padding: 0 46px 60px;
+      columns: 3;
+      column-gap: 16px;
+    }
+
+    .gallery-grid img {
+      width: 100%;
+      display: block;
+      margin-bottom: 16px;
+      object-fit: cover;
+      break-inside: avoid;
+      transition: opacity .25s;
+    }
+
+    .gallery-grid img:hover { opacity: .88; }
+
+    /* ── TEXT SECTION ── */
+    .art-text-section {
+      display: grid;
+      grid-template-columns: 387px 1fr;
+      gap: 40px;
+      padding: 60px 46px;
+      align-items: start;
+    }
+
+    .art-text-section img {
+      width: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .art-text-right {
+      padding-top: 8px;
+    }
+
+    .art-text-right .intro {
+      font-size: 28px;
+      font-weight: 300;
+      font-family: 'DM Sans', sans-serif;
+      color: var(--black);
+      line-height: 1.35;
+      margin-bottom: 24px;
+    }
+
+    .art-text-right p {
+      font-size: 15px;
+      font-weight: 300;
+      font-family: 'DM Sans', sans-serif;
+      color: var(--black);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    /* ── SECOND GALLERY ── */
+    .gallery-grid-2 {
+      padding: 0 46px 80px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto auto;
+      gap: 16px;
+    }
+
+    .gallery-grid-2 img {
+      width: 100%;
+      object-fit: cover;
+      display: block;
+      transition: opacity .25s;
+    }
+
+    .gallery-grid-2 img:hover { opacity: .88; }
+
+    .gallery-grid-2 .tall { grid-row: span 2; }
+
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <span class="nav-name">Halle Hwang</span>
+    <ul class="nav-links">
+      <li><a href="index.html">Projects</a></li>
+      <li><a href="copenhagen2.html">Copenhagen</a></li>
+      <li><a href="yosemite.html">Yosemite</a></li>
+      <li><a href="art.html" class="active">Art</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO TITLE -->
+  <div class="art-hero">
+    <h1>halle_art</h1>
+  </div>
+
+  <!-- TOP MASONRY GALLERY — 3 cols -->
+  <div class="gallery-grid">
+    <!-- col 1 -->
+    <img src="img/victoria.jpg" alt="Victoria by Alessio Albi" style="height:483px;" />
+    <img src="img/jacob.JPG" alt="work in progress of Jacob" style="height:432px;" />
+
+    <!-- col 2 -->
+    <img src="img/froy.JPG" alt="Froy" style="height:414px;" />
+    <img src="img/prisonmike.JPG" alt="Prison Mike from The Office" style="height:476px;" />
+
+    <!-- col 3 -->
+    <img src="img/inka.JPG" alt="Inka Williams" style="height:442px;" />
+    <img src="img/mathieu2.JPG" alt="Mathieu Simoneau" style="height:443px;" />
+  </div>
+
+  <!-- TEXT + SIDE IMAGE -->
+  <div class="art-text-section">
+    <img src="img/kastellet.jpeg" alt="Halle art" style="height:483px;" />
+    <div class="art-text-right">
+      <div class="intro">Art fills every space in my education and life.</div>
+      <p>I spent most of my childhood doing ballet. My mom tells me that I fell in love with ballet the second I saw those pointe shoes in Barbie's Twelve Dancing Princesses. I also taught myself how to draw; colored pencil portraits became my creative outlet after I quit ballet in high school. I also love photography and videography, and I grew up in a musical household, so my siblings, mom, and I all play instruments.</p>
+      <p>I taught myself how to draw when I was in middle school. I completed my first "realistic" portrait in 2016, when I was about 14. It quickly became my form of expression, and I eventually wrote my college application essay about my art journey. You can read it down below.</p>
+      <p>My grandma gifted me a watercolor set for Christmas 2017, and it wasn't until my first road trip that I actually took it out and used it. It has traveled with me around California, on my first solo trip (to NYC), my study abroad in Copenhagen, and my post grad adventures.</p>
+    </div>
+  </div>
+
+  <!-- BOTTOM GALLERY — mixed heights -->
+  <div class="gallery-grid-2">
+    <img class="tall" src="img/centralpark.jpeg" alt="artwork 7" style="height:100%;" />
+    <img src="img/halfdome1.jpeg" alt="artwork 8" style="height:389px;" />
+    <img src="img/pave.jpeg" alt="artwork 9" style="height:389px;" />
+    <img src="img/northdome.jpeg" alt="artwork 10" style="height:515px;" />
+    <img src="img/wspark.jpeg" alt="artwork 11" style="height:515px;" />
+  </div>
+
+</body>
+</html>

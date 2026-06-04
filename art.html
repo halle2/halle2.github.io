@@ -6,208 +6,250 @@
   <title>Art — Halle Hwang</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Radley:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;1,9..40,300&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Radley:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --zinc-400: #a1a1aa;
+      --paper: #fbfaf6;
       --white: #fff;
-      --black: #000;
+      --ink:   #1d1b17;
+      --muted: #837c70;
+      --hair:  rgba(29,27,23,.14);
+      --serif: 'Cardo', serif;
+      --sans:  'DM Sans', sans-serif;
+      --display: 'Radley', serif;
+      --gap: 16px;
     }
 
     html { scroll-behavior: smooth; }
 
     body {
-      background: var(--white);
-      font-family: 'Cardo', serif;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--serif);
       overflow-x: hidden;
     }
 
     /* ── NAV ── */
     nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: var(--white);
-      border-bottom: 1px solid var(--zinc-400);
-      height: 71px;
-      display: flex;
-      align-items: center;
-      padding: 0 32px;
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(251,250,246,.9); backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--hair);
+      height: 71px; display: flex; align-items: center; padding: 0 clamp(20px, 4vw, 40px);
     }
-
-    .nav-name {
-      font-family: 'Cardo', serif;
-      font-size: 20px;
-      font-weight: 400;
-      color: var(--black);
-      display: inline-block;
-      transform: rotate(-9.61deg);
-      transform-origin: top left;
-      margin-right: auto;
-      margin-top: 6px;
+    .nav-name,
+    .nav-name:link,
+    .nav-name:visited,
+    .nav-name:hover,
+    .nav-name:focus,
+    .nav-name:active {
+      font-family: var(--serif); font-size: 20px; color: var(--ink);
+      text-decoration: none; border-bottom: none;
+      display: inline-block; transform: rotate(-9.61deg); transform-origin: top left;
+      margin-right: auto; margin-top: 6px;
     }
-
-    .nav-links {
-      display: flex;
-      gap: 40px;
-      list-style: none;
-    }
-
+    .nav-links { display: flex; gap: clamp(20px, 3vw, 40px); list-style: none; }
     .nav-links a {
-      font-family: 'Cardo', serif;
-      font-size: 16px;
-      color: var(--black);
-      text-decoration: none;
-      transition: opacity .2s;
+      font-family: var(--serif); font-size: 16px; color: var(--ink); text-decoration: none;
+      position: relative; padding-bottom: 3px;
     }
-
-    .nav-links a:hover { opacity: .5; }
-    .nav-links a.active { font-weight: 700; }
+    .nav-links a::after {
+      content: ""; position: absolute; left: 0; bottom: 0; width: 100%; height: 1px;
+      background: var(--ink); transform: scaleX(0); transform-origin: left; transition: transform .28s ease;
+    }
+    .nav-links a:hover::after { transform: scaleX(1); }
+    .nav-links a.active::after { transform: scaleX(1); }
 
     /* ── HERO TITLE ── */
     .art-hero {
-      padding: 80px 131px 48px;
+      padding: clamp(56px, 8vw, 88px) clamp(28px, 6vw, 64px) 36px;
+      display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+      border-bottom: 1px solid var(--hair);
     }
-
-    .art-hero h1 {
-      font-family: 'Radley', serif;
-      font-size: 72px;
-      font-weight: 400;
-      color: var(--black);
-      line-height: 1;
+    .art-hero .eyebrow {
+      font-family: var(--sans); font-size: 12px; font-weight: 500; letter-spacing: .28em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 16px;
     }
+    .art-hero h1 { font-family: var(--display); font-size: clamp(48px, 8vw, 84px); font-weight: 400; line-height: .95; }
+    .art-hero .sub { font-family: var(--sans); font-size: 14px; font-weight: 300; color: var(--muted); max-width: 30ch; line-height: 1.5; }
 
-    /* ── MASONRY GRID ── */
-    .gallery-grid {
-      padding: 0 46px 60px;
-      columns: 3;
-      column-gap: 16px;
+    /* ── MASONRY GALLERIES ── */
+    /* shared image styling for both galleries */
+    .gallery img {
+      display: block; border-radius: 2px; cursor: zoom-in;
+      box-shadow: 0 8px 26px -16px rgba(20,14,4,.45);
+      transition: opacity .25s ease;
     }
+    .gallery img:hover { opacity: .88; }
 
-    .gallery-grid img {
-      width: 100%;
-      display: block;
-      margin-bottom: 16px;
-      object-fit: cover;
-      break-inside: avoid;
-      transition: opacity .25s;
+    /* uniform square grid — portraits */
+    .grid-uniform {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gap);
+      padding: clamp(28px, 4vw, 44px) clamp(28px, 6vw, 64px);
     }
+    .grid-uniform img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; }
 
-    .gallery-grid img:hover { opacity: .88; }
+    /* natural masonry — landscapes keep original sizes */
+    .grid-natural {
+      columns: 3; column-gap: var(--gap);
+      padding: clamp(28px, 4vw, 44px) clamp(28px, 6vw, 64px);
+    }
+    .grid-natural img { width: 100%; height: auto; margin-bottom: var(--gap); break-inside: avoid; }
 
-    /* ── TEXT SECTION ── */
+    /* ── TEXT + SIDE IMAGE ── */
     .art-text-section {
-      display: grid;
-      grid-template-columns: 387px 1fr;
-      gap: 40px;
-      padding: 60px 46px;
-      align-items: start;
+      display: grid; grid-template-columns: minmax(300px, 400px) 1fr; gap: clamp(32px, 5vw, 64px);
+      padding: clamp(48px, 7vw, 80px) clamp(28px, 6vw, 64px); align-items: start;
+      border-top: 1px solid var(--hair); border-bottom: 1px solid var(--hair);
     }
-
-    .art-text-section img {
-      width: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .art-text-right {
-      padding-top: 8px;
-    }
-
+    .art-text-section img { width: 100%; height: auto; object-fit: cover; display: block; border-radius: 2px; }
+    .art-text-right { padding-top: 4px; }
     .art-text-right .intro {
-      font-size: 28px;
-      font-weight: 300;
-      font-family: 'DM Sans', sans-serif;
-      color: var(--black);
-      line-height: 1.35;
-      margin-bottom: 24px;
+      font-family: var(--display); font-size: clamp(26px, 3.2vw, 36px); font-weight: 400;
+      color: var(--ink); line-height: 1.25; margin-bottom: 28px; max-width: 22ch;
     }
-
     .art-text-right p {
-      font-size: 15px;
-      font-weight: 300;
-      font-family: 'DM Sans', sans-serif;
-      color: var(--black);
-      line-height: 1.7;
-      margin-bottom: 20px;
+      font-family: var(--sans); font-size: 15.5px; font-weight: 300; color: #38342c;
+      line-height: 1.75; margin-bottom: 20px; max-width: 62ch;
     }
 
-    /* ── SECOND GALLERY ── */
-    .gallery-grid-2 {
-      padding: 0 46px 80px;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      grid-template-rows: auto auto;
-      gap: 16px;
+    /* ── LIGHTBOX ── */
+    .lightbox {
+      position: fixed; inset: 0; z-index: 1000; display: none; align-items: center; justify-content: center;
+      background: rgba(18,16,12,.94); backdrop-filter: blur(4px); padding: clamp(24px, 5vw, 56px);
+    }
+    .lightbox.open { display: flex; }
+    .lb-img {
+      max-width: 90vw; max-height: 84vh; object-fit: contain;
+      box-shadow: 0 30px 90px rgba(0,0,0,.55); border-radius: 2px;
+      animation: lbin .32s cubic-bezier(.2,.8,.2,1);
+    }
+    @keyframes lbin { from { opacity: 0; transform: scale(.97); } to { opacity: 1; transform: none; } }
+    .lb-close, .lb-nav {
+      position: absolute; background: none; border: none; color: #fff; cursor: pointer;
+      opacity: .65; transition: opacity .2s; line-height: 1; font-family: var(--serif);
+    }
+    .lb-close:hover, .lb-nav:hover { opacity: 1; }
+    .lb-close { top: 22px; right: 26px; font-size: 38px; }
+    .lb-nav { top: 50%; transform: translateY(-50%); font-size: 52px; padding: 8px 18px; }
+    .lb-prev { left: 10px; } .lb-next { right: 10px; }
+    .lb-caption {
+      position: absolute; bottom: 24px; left: 0; right: 0; text-align: center;
+      font-family: var(--sans); font-size: 13px; font-weight: 300; letter-spacing: .05em; color: rgba(255,255,255,.8);
     }
 
-    .gallery-grid-2 img {
-      width: 100%;
-      object-fit: cover;
-      display: block;
-      transition: opacity .25s;
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .grid-uniform { grid-template-columns: repeat(2, 1fr); }
+      .grid-natural { columns: 2; }
     }
-
-    .gallery-grid-2 img:hover { opacity: .88; }
-
-    .gallery-grid-2 .tall { grid-row: span 2; }
-
+    @media (max-width: 640px) {
+      .grid-uniform { grid-template-columns: 1fr; }
+      .grid-natural { columns: 1; }
+      .art-text-section { grid-template-columns: 1fr; }
+      .lb-nav { font-size: 38px; padding: 6px 10px; }
+    }
   </style>
 </head>
 <body>
 
   <!-- NAV -->
   <nav>
-    <span class="nav-name">Halle Hwang</span>
+    <a href="index.html" class="nav-name">Halle Hwang</a>
     <ul class="nav-links">
       <li><a href="index.html">Projects</a></li>
       <li><a href="copenhagen2.html">Copenhagen</a></li>
-      <li><a href="yosemite.html">Yosemite</a></li>
+      <li><a href="yosemite2.html">Yosemite</a></li>
       <li><a href="art.html" class="active">Art</a></li>
     </ul>
   </nav>
 
   <!-- HERO TITLE -->
   <div class="art-hero">
-    <h1>halle_art</h1>
+    <div>
+      <div class="eyebrow">Selected Work</div>
+      <h1>halle_art</h1>
+    </div>
+    <p class="sub">Colored-pencil portraits and watercolors — click any piece to view it larger.</p>
   </div>
 
-  <!-- TOP MASONRY GALLERY — 3 cols -->
-  <div class="gallery-grid">
-    <!-- col 1 -->
-    <img src="img/victoria.jpg" alt="Victoria by Alessio Albi" style="height:483px;" />
-    <img src="img/jacob.JPG" alt="work in progress of Jacob" style="height:432px;" />
-
-    <!-- col 2 -->
-    <img src="img/froy.JPG" alt="Froy" style="height:414px;" />
-    <img src="img/prisonmike.JPG" alt="Prison Mike from The Office" style="height:476px;" />
-
-    <!-- col 3 -->
-    <img src="img/inka.JPG" alt="Inka Williams" style="height:442px;" />
-    <img src="img/mathieu2.JPG" alt="Mathieu Simoneau" style="height:443px;" />
+  <!-- TOP GALLERY — portraits, uniform size -->
+  <div class="gallery grid-uniform">
+    <img src="img/victoria.jpg"    alt="Victoria — colored pencil" />
+    <img src="img/jacob.JPG"       alt="Jacob (work in progress)" />
+    <img src="img/froy.JPG"        alt="Froy" />
+    <img src="img/prisonmike.JPG"  alt="Prison Mike" />
+    <img src="img/inka.JPG"        alt="Inka Williams" />
+    <img src="img/mathieu2.JPG"    alt="Mathieu Simoneau" />
   </div>
 
   <!-- TEXT + SIDE IMAGE -->
   <div class="art-text-section">
-    <img src="img/kastellet.jpeg" alt="Halle art" style="height:483px;" />
+    <img src="img/kastellet.jpeg" alt="Kastellet, Copenhagen" />
     <div class="art-text-right">
       <div class="intro">Art fills every space in my education and life.</div>
       <p>I spent most of my childhood doing ballet. My mom tells me that I fell in love with ballet the second I saw those pointe shoes in Barbie's Twelve Dancing Princesses. I also taught myself how to draw; colored pencil portraits became my creative outlet after I quit ballet in high school. I also love photography and videography, and I grew up in a musical household, so my siblings, mom, and I all play instruments.</p>
-      <p>I taught myself how to draw when I was in middle school. I completed my first "realistic" portrait in 2016, when I was about 14. It quickly became my form of expression, and I eventually wrote my college application essay about my art journey. You can read it down below.</p>
-      <p>My grandma gifted me a watercolor set for Christmas 2017, and it wasn't until my first road trip that I actually took it out and used it. It has traveled with me around California, on my first solo trip (to NYC), my study abroad in Copenhagen, and my post grad adventures.</p>
+      <p>I taught myself how to draw when I was in middle school. I completed my first "realistic" portrait in 2016, when I was about 14. It quickly became my form of expression, and I eventually wrote my college application essay about my art journey.</p>
+      <p>My grandma gifted me a watercolor set for Christmas 2017, and it wasn't until my first road trip that I actually took it out and used it. It has traveled with me around California, on my first solo trip (to NYC), my study abroad in Copenhagen, and my post-grad adventures.</p>
     </div>
   </div>
 
-  <!-- BOTTOM GALLERY — mixed heights -->
-  <div class="gallery-grid-2">
-    <img class="tall" src="img/centralpark.jpeg" alt="artwork 7" style="height:100%;" />
-    <img src="img/halfdome1.jpeg" alt="artwork 8" style="height:389px;" />
-    <img src="img/pave.jpeg" alt="artwork 9" style="height:389px;" />
-    <img src="img/northdome.jpeg" alt="artwork 10" style="height:515px;" />
-    <img src="img/wspark.jpeg" alt="artwork 11" style="height:515px;" />
+  <!-- BOTTOM GALLERY — landscapes, original sizes -->
+  <div class="gallery grid-natural">
+    <img src="img/centralpark.jpeg" alt="Central Park, NYC" />
+    <img src="img/halfdome1.jpeg"   alt="Half Dome, Yosemite" />
+    <img src="img/pave.jpeg"        alt="Pavé" />
+    <img src="img/northdome.jpeg"   alt="North Dome, Yosemite" />
+    <img src="img/wspark.jpeg"      alt="Washington Square Park" />
   </div>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="lb-close" id="lbClose" aria-label="Close">&times;</button>
+    <button class="lb-nav lb-prev" id="lbPrev" aria-label="Previous">&lsaquo;</button>
+    <img class="lb-img" id="lbImg" src="" alt="" />
+    <button class="lb-nav lb-next" id="lbNext" aria-label="Next">&rsaquo;</button>
+    <div class="lb-caption" id="lbCaption"></div>
+  </div>
+
+  <script>
+    (function () {
+      var imgs = Array.prototype.slice.call(document.querySelectorAll('.gallery img'));
+      var lb = document.getElementById('lightbox');
+      var lbImg = document.getElementById('lbImg');
+      var lbCap = document.getElementById('lbCaption');
+      var idx = 0;
+
+      function show(i) {
+        idx = (i + imgs.length) % imgs.length;
+        var src = imgs[idx].currentSrc || imgs[idx].src;
+        lbImg.src = src;
+        lbImg.alt = imgs[idx].alt || '';
+        lbCap.textContent = imgs[idx].alt || '';
+        lb.classList.add('open');
+        lb.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+      function close() {
+        lb.classList.remove('open');
+        lb.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+
+      imgs.forEach(function (im, i) { im.addEventListener('click', function () { show(i); }); });
+      document.getElementById('lbClose').addEventListener('click', close);
+      document.getElementById('lbPrev').addEventListener('click', function (e) { e.stopPropagation(); show(idx - 1); });
+      document.getElementById('lbNext').addEventListener('click', function (e) { e.stopPropagation(); show(idx + 1); });
+      lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
+      document.addEventListener('keydown', function (e) {
+        if (!lb.classList.contains('open')) return;
+        if (e.key === 'Escape') close();
+        else if (e.key === 'ArrowLeft') show(idx - 1);
+        else if (e.key === 'ArrowRight') show(idx + 1);
+      });
+    })();
+  </script>
 
 </body>
 </html>
