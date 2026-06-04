@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Copenhagen — Halle Hwang</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --white: #fff;
+      --black: #000;
+      --stone-400: #a8a29e;
+      --stone-50: #fafaf9;
+      --slate-200: #e2e8f0;
+      --zinc-100: #f4f4f5;
+      --zinc-300: #d4d4d8;
+      --sky-700: #0369a1;
+      --blue-300: #93c5fd;
+      --pink-900: #831843;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: url('img/gingham.png');
+      background-size: 600px auto;
+      font-family: 'Instrument Serif', serif;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+      nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--white);
+      border-bottom: 1px solid var(--zinc-400);
+      height: 71px;
+      display: flex;
+      align-items: center;
+      padding: 0 32px;
+    }
+
+    .nav-name {
+      font-family: 'Cardo', serif;
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--black);
+      display: inline-block;
+      transform: rotate(-9.61deg);
+      transform-origin: top left;
+      margin-right: auto;
+      margin-top: 6px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'Cardo', serif;
+      font-size: 16px;
+      color: var(--black);
+      text-decoration: none;
+      transition: opacity .2s;
+    }
+
+    .nav-links a:hover { opacity: .5; }
+    .nav-links a.active { font-weight: 700; }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      height: 714px;
+      margin: 24px 32px 0;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 8px solid var(--white);
+      box-shadow: 0 0 0 0 transparent;
+    }
+
+    .hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,.08) 0%, rgba(0,0,0,.38) 100%);
+    }
+
+    .hero-text {
+      position: absolute;
+      top: 80px;
+      right: 48px;
+      text-align: right;
+    }
+
+    .hero-text .line1 {
+      display: block;
+      font-size: 96px;
+      font-weight: 400;
+      color: var(--white);
+      line-height: 30px;
+    }
+
+    .hero-text .line2 {
+      display: block;
+      font-size: 96px;
+      font-weight: 400;
+      color: var(--white);
+      line-height: 100px;
+    }
+
+    .hero-text .subtitle {
+      display: block;
+      font-size: 28px;
+      color: var(--white);
+      margin-top: 8px;
+    }
+
+    /* ── A DANISH AUTUMN (three columns) ── */
+    .autumn-section {
+      margin: 28px 32px;
+      background: var(--stone-50);
+      border-radius: 20px;
+      border: 8px solid var(--pink-900);
+      padding: 44px 48px 52px;
+    }
+
+    .autumn-columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1.2fr;
+      gap: 44px;
+    }
+
+    /* vertical divider between the text and "My Recs!" */
+    .recs-col {
+      border-left: 1px solid var(--pink-900);
+      padding-left: 44px;
+    }
+
+    .autumn-title {
+      font-size: 72px;
+      font-weight: 600;
+      color: var(--pink-900);
+      line-height: 0.75;
+      margin-bottom: 28px;
+    }
+
+    .autumn-title .line2 {
+      display: inline-block;
+      padding-left: 1.25em;
+    }
+
+    .autumn-text {
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--black);
+      line-height: 1.4;
+    }
+
+    /* ── RECS (third column) ── */
+    .recs-heading {
+      font-size: 48px;
+      font-weight: 400;
+      color: var(--pink-900);
+      line-height: 1.0;
+      margin-bottom: 14px;
+    }
+
+    .recs-intro {
+      font-size: 16px;
+      color: var(--black);
+      line-height: 1.4;
+      margin-bottom: 24px;
+    }
+
+    .recs-subgrid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px 20px;
+    }
+
+    .rec-category {
+      color: var(--pink-900);
+      font-size: 16px;
+      line-height: 1.5;
+      margin-bottom: 2px;
+    }
+
+    .rec-items {
+      font-size: 16px;
+      line-height: 1.4;
+      color: var(--black);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <span class="nav-name">Halle Hwang</span>
+    <ul class="nav-links">
+      <li><a href="index.html">Projects</a></li>
+      <li><a href="#">Copenhagen</a></li>
+      <li><a href="yosemite2.html">Yosemite</a></li>
+      <li><a href="art.html" class="active">Art</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <img src="img/nyhavn2.jpeg" alt="Copenhagen hero" />
+    <div class="hero-overlay"></div>
+    <div class="hero-text">
+      <span class="line1">A Semester</span>
+      <span class="line2">In Copenhagen</span>
+      <span class="subtitle">Studying Abroad and Living Alone!</span>
+    </div>
+  </div>
+
+  <!-- A DANISH AUTUMN + RECS (three columns) -->
+  <div class="autumn-section">
+    <div class="autumn-columns">
+
+      <!-- Column 1: title + first body block -->
+      <div class="autumn-text">
+        <div class="autumn-title">A Danish<br/><span class="line2"> Autumn</span></div>
+        I secured my apartment just three days before flying into Copenhagen. I think at that point, I had sent about 17 Facebook messages across four different sublet groups. My old roommate joked that worst-case scenario, I'd live with her for the first month.
+        <br/><br/>
+        I ended up in a studio in Nørrebro, a neighborhood known for its hip and lively atmosphere. It has a good mix of cafes, green space, skate parks, bars, and vintage shops, and I really enjoyed my time there.
+        <br/><br/>
+        My room overlooked the train tracks, and one of my favorite rituals became laying on the couch and watch the S-train pass by. I hosted dinners with my friends in the communal kitchen, and we'd play cards on the rooftop as the evenings stretched out.
+        <br/><br/>
+        Copenhagen had a number of cool city-wide events when I first arrived. I cheered on a friend running the Copenhagen Half Marathon and took advantage of K7 Week, hopping between museums and even attending a ballet for free or at a steep discount.
+      </div>
+
+      <!-- Column 2: second body block -->
+      <div class="autumn-text">
+        That summer was absolutely beautiful. It didn't rain until the end of September, which is practically unheard of. With all of the sun, we spent as much time as we could at the water or in the park with our ciders and beer.
+        <br/><br/>
+        Going out for full meals was a bit out of budget, but food was still a big part of how we explored the city. Whether chili cheese tops to 2am kebabs, my friends and I snacked around the Copenhagen as we sipped on our beers. I remember a Danish friend had told me that it would take 10,000 beers before I started to like the taste. Now, I can proudly say that I can drink a pint of pilsner without making a face!
+        <br/><br/>
+        Pastries and coffee with friends were always penciled into my schedule, and the best days were full of them: coffee in the morning, pastries after class, another coffee, homemade dinner, and a bar in the evening.
+        <br/><br/>
+        One of the biggest culture shocks that I had was seeing the number of strollers left outside of cafes and bars. Parents would socialize with their friends and leave their babies bundled up outside. When I brought it up to my Danish friends, they asked, "why would anyone want to steal a baby?"
+      </div>
+
+      <!-- Column 3: My Recs! -->
+      <div class="autumn-text recs-col">
+        <div class="recs-heading">My Recs!</div>
+        <p class="recs-intro"> 
+          My Danish friends still can’t believe that I somehow navigated the city without a single bike ride. 
+          I walked 7-10 miles a day, finding shops and cafes to pop into along the way. 
+          Here are some of my favorite places:
+        </p>
+
+        <div class="recs-subgrid">
+          <div>
+            <div class="rec-category">Bars:</div>
+            <div class="rec-items">
+              Rannør<br/>
+              Tjili Pop<br/>
+              Cafe det Elektriske Hjorne<br/>
+              The Packhouse<br/>
+              1656
+            </div>
+          </div>
+
+          <div>
+            <div class="rec-category">Food:</div>
+            <div class="rec-items">
+              Danish Breakfast at Kompa9<br/>
+              Kebab at Power Food<br/>
+              Pizza at Pico Pizza<br/>
+              Tomato Risotto at Grod<br/>
+              Fancy dinner at Host
+            </div>
+          </div>
+
+          <div>
+            <div class="rec-category">Coffee:</div>
+            <div class="rec-items">
+              Darcy Kaffe<br/>
+              Flere Fugle<br/>
+              Prolog<br/>
+              Kaf' Bar<br/>
+              Ipsen &amp; Co<br/>
+              Lagoni &amp; Co<br/>
+              Grums<br/>
+              Rist<br/>
+              Coffee Collective Jægersborggade
+            </div>
+          </div>
+
+          <div>
+            <div class="rec-category">Other fun spots:</div>
+            <div class="rec-items">
+              Library Bar (for jazz)<br/>
+              La Fontaine (also for jazz)<br/>
+              Board games at Bastard Cafe<br/>
+              Kastellet (park)<br/>
+              People watching at King's Garden<br/>
+              Outdoor Climbing at Bananna Park<br/>
+              Notre Dame (home goods store)
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PHOTO COLLAGE STRIP -->
+  <div style="margin: 40px 32px;">
+    <img src="img/photowall2.png" alt="Copenhagen photo wall" style="width:100%;border-radius:20px;display:block;" />
+  </div>
+
+</body>
+</html>

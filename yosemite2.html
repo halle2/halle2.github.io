@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yosemite — Halle Hwang</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Special+Elite&family=Waiting+for+the+Sunrise&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --white: #fff;
+      --black: #000;
+      --stone-400: #a8a29e;
+      --stone-50: #fafaf9;
+      --zinc-100: #f4f4f5;
+      --zinc-300: #d4d4d8;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--white);
+      font-family: 'Special Elite', serif;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+   nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--white);
+      border-bottom: 1px solid var(--zinc-400);
+      height: 71px;
+      display: flex;
+      align-items: center;
+      padding: 0 32px;
+    }
+
+    .nav-name {
+      font-family: 'Cardo', serif;
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--black);
+      display: inline-block;
+      transform: rotate(-9.61deg);
+      transform-origin: top left;
+      margin-right: auto;
+      margin-top: 6px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'Cardo', serif;
+      font-size: 16px;
+      color: var(--black);
+      text-decoration: none;
+      transition: opacity .2s;
+    }
+
+    .nav-links a:hover { opacity: .5; }
+    .nav-links a.active { font-weight: 700; }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      height: 786px;
+      overflow: hidden;
+    }
+
+    .hero > img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .hero-title-card {
+      position: absolute;
+      top: 53px;
+      left: 66px;
+      background: var(--zinc-100);
+      padding: 29px 44px;
+      width: 509px;
+      overflow: hidden;
+    }
+
+    .hero-title-card .diagonal-bar-1 {
+      position: absolute;
+      width: 40px;
+      height: 128px;
+      left: -14px;
+      top: -43px;
+      transform: rotate(50deg);
+      opacity: .8;
+      background: var(--zinc-300);
+    }
+
+    .hero-title-card .diagonal-bar-2 {
+      position: absolute;
+      width: 40px;
+      height: 120px;
+      right: -28px;
+      bottom: -30px;
+      transform: rotate(50deg);
+      opacity: .8;
+      background: var(--zinc-300);
+    }
+
+    .hero-title-card h1 {
+      font-family: 'Special Elite', serif;
+      font-size: 72px;
+      font-weight: 400;
+      color: var(--black);
+      line-height: 80px;
+      text-align: right;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── PHOTO ROW ── */
+    .photo-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      height: 277px;
+      margin: 10px;
+    }
+
+    .photo-row img {
+      padding: 10px;
+      /* margin-top: 10px; */
+      /* margin: 10px 0 10px; */
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* ── BODY TEXT — consistent across all sections ── */
+    .body-text {
+      font-family: 'Special Elite', serif;
+      font-size: 15px;
+      line-height: 1.65;
+      color: var(--black);
+      max-width: 499px;
+    }
+
+    /* ── WORKING LABEL ── */
+    .working-label {
+      background: var(--stone-50);
+      box-shadow: 0 4px 4px rgba(0,0,0,.25);
+      padding: 20px 28px;
+      font-size: 36px;
+      font-family: 'Special Elite', serif;
+      color: var(--black);
+      line-height: 1.1;
+      display: inline-block;
+      /* margin-bottom: 32px; */
+      margin: 32px 0;
+    }
+
+    
+
+    /* ── FULL-WIDTH PHOTO ── */
+    .full-photo {
+      width: 100%;
+      height: 852px;
+      object-fit: cover;
+      display: block;
+      position: relative;
+    }
+
+    .full-photo-wrap {
+      position: relative;
+    }
+
+    .inset-photo {
+      position: absolute;
+      top: 66px;
+      right: 80px;
+      width: 409px;
+      height: 266px;
+      object-fit: cover;
+      border: 8px solid var(--white);
+      display: block;
+    }
+
+    /* ── NEWSPAPER COLUMNS ── */
+    .newspaper-section {
+      padding: 56px 82px 64px 82px;
+      margin-right: 80px;
+      margin-left: 80px;
+    }
+ 
+    .newspaper-columns {
+      column-count: 2;
+      column-gap: 48px;
+      font-family: 'Special Elite', serif;
+      font-size: 15px;
+      line-height: 1.65;
+      color: var(--black);
+    }
+ 
+    /* ── SCRAPBOOK ROW ── */
+    .scrapbook-row {
+      display: flex;
+      gap: 32px;
+      align-items: flex-end;
+      padding: 0 82px 72px 82px;
+      position: relative;
+    }
+ 
+    .scrap-wrap {
+      position: relative;
+      flex-shrink: 0;
+    }
+ 
+    .scrap-img {
+      object-fit: cover;
+      display: block;
+      box-shadow: 0 4px 4px rgba(0,0,0,.25);
+    }
+ 
+    .bz { border: 3px solid var(--zinc-100); }
+    .bw { border: 3px solid var(--white); }
+ 
+    .pin {
+      position: absolute;
+      width: 20px;
+      height: 60px;
+      top: -28px;
+      left: 50%;
+      transform: translateX(-50%);
+      object-fit: contain;
+      display: block;
+    }
+ 
+    .quote-wrap {
+      flex-shrink: 0;
+      align-self: flex-end;
+      padding-bottom: 12px;
+    }
+ 
+    .quote-block {
+      font-family: 'Waiting for the Sunrise', cursive;
+      font-size: 17px;
+      font-weight: 300;
+      color: var(--black);
+      line-height: 1.45;
+      width: 180px;
+      transform: rotate(4.15deg);
+      display: block;
+    }
+ 
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <span class="nav-name">Halle Hwang</span>
+    <ul class="nav-links">
+      <li><a href="index.html">Projects</a></li>
+      <li><a href="copenhagen2.html">Copenhagen</a></li>
+      <li><a href="yosemite2.html" class="active">Yosemite</a></li>
+      <li><a href="art.html">Art</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <img src="img/plank.jpeg" alt="Yosemite" />
+    <div class="hero-title-card">
+      <div class="diagonal-bar-1"></div>
+      <div class="diagonal-bar-2"></div>
+      <h1>POST-GRAD<br/>SUMMER</h1>
+    </div>
+  </div>
+
+  <!-- PHOTO ROW -->
+  <div class="photo-row">
+    <img src="img/meadow.jpg" alt="In the Meadow" />
+    <img src="img/diaryentry.png" alt="Diary Entry" />
+    <img src="img/tent1.jpeg" alt="Halle in front of tent" />
+  </div>
+
+  <!-- COMBINED CONTENT: all text left, scrapbook photos right -->
+  <div class="content-row">
+
+    <!-- LEFT: label + all body text in one continuous column -->
+    <div>
+
+<div class="newspaper-section">
+    <div class="working-label">Working in Yosemite</div>
+    <div class="newspaper-columns">
+      I first visited Yosemite in 2023 while on my first roadtrip ever. The valley was completely flooded, and the waterfalls were at full blast. 
+      The happiest moment of my life was when we were getting waterboarded by the mist trail as we looked out at the double rainbow. I knew at that moment, 
+      I had to live in Yosemite at some point in my life.
+      <br/><br/>
+      I looked into seasonal work at the park, but my summer schedule didn't allow for a long stay that year. 
+      When I got back from my exchange in Copenhagen, I decided to look into it again despite it being relatively late in the application season. 
+      I got the job offer while driving back from Wilfer with the same friends from that road trip around California.
+      <br/><br/>
+      I arrived in Fresno on June 23rd, took the YARTs bus the next day, and officially started on June 26th.
+      I was a cashier at the main store, and the job itself was probably the most demanding one I've had in my five years of customer service. 
+      Lines seemed to be neverending! During orientation, they had told us that the park expected five million visitors that year.
+      <br/><br/>
+      I shared a canvas tent with wooden floors with a girl from Santa Cruz for the first month. 
+      There are five (?) employee housing areas, mine was called Huff and it was known to be the most social.
+      <br/><br/>
+      We were close to Curry Village, so my friends would often grab coffee from Peet's in the morning and hang out in the meadow. 
+      I tried to get in 5–10 miles before my shifts — my average step count was 20k that summer.
+      <br/><br/>
+      On my days off, I'd take a hike by myself and just explore the valley trails. 
+      My longest hike was 54km, which I had severely underpacked for (I had only intended on doing the Mist trail).
+      I had to hike the John Muir Trail down in the dark, and I guess someone was looking out for me because one of the last shuttles of the night came two minutes after I got to the stop. 
+      I could barely walk the next few days.
+      <br/><br/>
+      There were three sets of kitchens, bathrooms, and laundry throughout Huff. 
+      My tent was in between Huff 2 and 3. Previous tenants had somehow smuggled a picnic table in front of our tent, so my roommate and I would have breakfasts with our neighbors or watch the squirrels and stellar jays.
+      <br/><br/>
+      It really was the summer of living offline. I didn't have a hair dryer with me, so I'd dry my hair while bike riding around the park. 
+      I checked out books from the library and found random reading rocks in "secret" places. 
+      When I needed better signal, I'd hike to the top of Nevada Falls and call my mom or friends from there.
+      <br/><br/>
+      I'd work on code on the porch at Curry Village in the mornings, scramble some rocks after, then get ready for my shift. 
+      Listened to lots of Caamp, The Lumineers, Arcy Drive, and all the granola folk artists that everyone else there had in their playlist.
+    </div>
+  </div>
+ 
+  <!-- SCRAPBOOK ROW -->
+  <div class="scrapbook-row">
+ 
+    <div class="scrap-wrap">
+      <img class="pin" src="img/clothespin.png" alt="" style="transform:translateX(-50%) rotate(8deg);" />
+      <img class="scrap-img bz" src="img/picnic_table.jpg" alt="Picnic table"
+           style="width:256px;height:163px;transform:rotate(8deg);" />
+    </div>
+ 
+    <div class="scrap-wrap">
+      <img class="pin" src="img/clothespin.png" alt="" style="transform:translateX(-50%) rotate(-5deg);" />
+      <img class="scrap-img bz" src="img/sunset.jpg" alt="Sunset"
+           style="width:244px;height:158px;transform:rotate(-5deg);" />
+    </div>
+ 
+    <div class="scrap-wrap">
+      <img class="pin" src="img/clothespin.png" alt="" style="transform:translateX(-50%) rotate(-2deg);" />
+      <img class="scrap-img bz" src="img/cashier.jpeg" alt="Cashiers"
+           style="width:207px;height:207px;" />
+    </div>
+ 
+    <div class="scrap-wrap">
+      <img class="pin" src="img/clothespin.png" alt="" style="transform:translateX(-50%) rotate(3.74deg);" />
+      <img class="scrap-img bw" src="img/boxes.jpeg" alt="Boxes"
+           style="width:212px;height:218px;transform:rotate(3.74deg);" />
+    </div>
+ 
+    <div class="quote-wrap">
+      <span class="quote-block">
+        "folded boxes till our hands were stained the color of wood"<br/>
+        <em>— The Backseat Lovers</em>
+      </span>
+    </div>
+ 
+  </div>
+  <!-- FULL WIDTH PHOTO -->
+   <div class="full-photo-wrap">
+    <img class="full-photo" src="img/housekeeping3.jpeg" alt="Yosemite Valley" />
+    <img class="inset-photo" src="img/IMG_9404.jpg" alt="Strava log" />
+  </div>
+
+</body>
+</html>
