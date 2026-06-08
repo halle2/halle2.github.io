@@ -246,6 +246,97 @@
       transform: rotate(4.15deg);
       display: block;
     }
+
+    /* ════════════════════════════════════════════════
+       RESPONSIVE  —  desktop layout above is untouched;
+       these rules only take over at smaller widths.
+       ════════════════════════════════════════════════ */
+
+    /* keep any image from forcing horizontal scroll */
+    img { max-width: 100%; }
+
+    /* ── TABLET (≤ 1024px): pull in the huge side gutters ── */
+    @media (max-width: 1024px) {
+      .newspaper-section {
+        padding: 44px 40px 52px;
+        margin-left: 32px;
+        margin-right: 32px;
+      }
+      .scrapbook-row { padding: 0 40px 56px; flex-wrap: wrap; justify-content: center; }
+      .hero { height: 620px; }
+      .full-photo { height: 640px; }
+    }
+
+    /* ── PHONE (≤ 768px): stack everything ── */
+    @media (max-width: 768px) {
+      /* hero */
+      .hero { height: 64vh; min-height: 380px; }
+      .hero-title-card {
+        top: 24px; left: 16px; right: 16px;
+        width: auto; padding: 18px 24px;
+      }
+      .hero-title-card h1 {
+        font-size: clamp(38px, 12vw, 60px);
+        line-height: 1.05;
+      }
+      .hero-title-card .diagonal-bar-1,
+      .hero-title-card .diagonal-bar-2 { display: none; }
+
+      /* photo row → single column */
+      .photo-row {
+        grid-template-columns: 1fr;
+        height: auto;
+        margin: 10px;
+      }
+      .photo-row img { height: 260px; padding: 6px; }
+
+      /* working label + columns */
+      .newspaper-section {
+        padding: 32px 20px 40px;
+        margin-left: 0;
+        margin-right: 0;
+      }
+      .working-label { font-size: 26px; padding: 16px 20px; margin: 20px 0; }
+      .newspaper-columns { column-count: 1; }
+
+      /* scrapbook wraps and centers */
+      .scrapbook-row {
+        gap: 28px 24px;
+        padding: 0 20px 48px;
+        align-items: flex-start;
+      }
+      .quote-wrap {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-self: center;
+        padding-top: 8px;
+      }
+
+      /* full-width photo + inset */
+      .full-photo { height: 440px; }
+      .inset-photo {
+        top: auto; bottom: 16px; right: 16px;
+        width: 44%; max-width: 200px; height: 120px;
+        border-width: 5px;
+      }
+    }
+
+    /* ── SMALL PHONE (≤ 480px): tighten nav + scrap images ── */
+    @media (max-width: 480px) {
+      nav { padding: 0 16px; }
+      .nav-name { font-size: 17px; }
+      .nav-links { gap: 16px; }
+      .nav-links a { font-size: 14px; }
+
+      /* let the pinned photos shrink to fit two-up / one-up */
+      .scrap-img {
+        width: auto !important;
+        max-width: 44vw;
+        height: auto !important;
+      }
+      .scrapbook-row { gap: 24px 16px; }
+    }
  
   </style>
 </head>
