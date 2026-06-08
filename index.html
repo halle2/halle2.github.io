@@ -161,6 +161,10 @@
     .project-meta .num { opacity: .7; }
     .project-meta .tag { border: 1px solid; border-radius: 999px; padding: 4px 12px; }
     .project-title { font-size: 32px; font-weight: 400; line-height: 1.12; }
+    .project-title a {
+      color: inherit; text-decoration: none; border-bottom: 1px solid transparent;
+      transition: border-color .3s;
+    }
     .project-desc { font-family: var(--sans); font-size: 15px; font-weight: 300; line-height: 1.65; }
 
     /* card colours + per-project type personality */
@@ -257,7 +261,7 @@
  <nav>
     <a href="index.html" class="nav-name">Halle Hwang</a>
     <ul class="nav-links">
-      <li><a href="index.html">Projects</a></li>
+      <!-- <li><a href="index.html">Projects</a></li> -->
       <li><a href="copenhagen2.html" class="active">Copenhagen</a></li>
       <li><a href="yosemite2.html">Yosemite</a></li>
       <li><a href="art.html">Art</a></li>
@@ -270,7 +274,7 @@
     <div class="hero-right">
       <div class="hero-eyebrow">Portfolio</div>
       <div class="hero-name">Halle Hwang</div>
-      <div class="hero-title">UI/UX Designer &amp; Creative Strategist</div>
+      <div class="hero-title">UI/UX Designer, Front-End Developer, &amp; Creative Strategist</div>
       <p class="hero-bio">
         I recently graduated from the University of Washington with a degree in Informatics. Though I enjoy working with data and statistics, my main passion lies in UI/UX design and art.
       </p>
@@ -305,11 +309,11 @@
     <!-- 01 Cafe Web Design -->
     <div class="project-card card-ochre">
       <div class="project-media">
-        <div class="media-frame"><img src="img/matchacover.JPG" alt="Cafe Web Design" /></div>
+        <div class="media-frame"><a href="cafe-design.html"><img src="img/matchacover.JPG" alt="Cafe Web Design" /></a></div>
       </div>
       <div class="project-text">
         <div class="project-meta"><span class="num">01</span><span class="tag">Web Design</span></div>
-        <div class="project-title">Cafe Web Design</div>
+        <div class="project-title"><a href="cafe-design.html">Cafe Web Design</a></div>
         <p class="project-desc">Designed a one-page cafe experience centered on storytelling, warmth, and brand identity. Combining imagery, menu content, a mission statement, and a meet-the-owner section, the project explores how thoughtful web design can turn casual visitors into engaged guests.</p>
       </div>
     </div>
@@ -320,14 +324,14 @@
         <div class="media-frame no-fade">
           <div class="video-wrapper"
                onclick="const v=this.querySelector('video'); if(v.paused){v.play();this.classList.add('playing');}else{v.pause();this.classList.remove('playing');}">
-            <video class="project-video" src="img/realconnection.MOV" muted loop playsinline preload="metadata"></video>
+            <video class="project-video" src="img/realconnection.mp4" muted loop playsinline preload="metadata"></video>
             <div class="video-placeholder"><span>Click to play</span></div>
           </div>
         </div>
       </div>
       <div class="project-text">
         <div class="project-meta"><span class="num">02</span><span class="tag">Content &amp; Branding</span></div>
-        <div class="project-title">Date Drop</div>
+        <div class="project-title"><a href="date-drop.html">Date Drop</a></div>
         <p class="project-desc">Created short-form content for Date Drop's UW launch and provided consultation on branding and marketing. Interviewed three couples from UW and shared their stories.</p>
       </div>
     </div>
@@ -335,12 +339,13 @@
     <!-- 03 Dental Website Redesign -->
     <div class="project-card card-sage">
       <div class="project-media">
-        <div class="media-frame"><img src="img/toothbrush.jpg" alt="Dental Website Redesign" /></div>
+        <div class="media-frame"><a href="dental-summary.html"><img src="img/toothbrush.jpg" alt="Dental Website Redesign" /></a></div>
       </div>
       <div class="project-text">
         <div class="project-meta"><span class="num">03</span><span class="tag">UX Research</span></div>
-        <div class="project-title">Dental Website Redesign</div>
-        <p class="project-desc">Partnered with a local dentistry to redesign its website — improving usability, visual appeal, and overall patient experience. Conducted user research and collaborated with the client to align the new design with both patient needs and practice goals.</p>
+        <div class="project-title"><a href="dental-summary.html">Dental Website Redesign</a></div>
+        
+        <p class="project-desc">Partnered with a local dentistry to redesign its website with the goal of improving usability, visual appeal, and overall patient experience. Conducted user research and collaborated with the client to align the new design with both patient needs and practice goals.</p>
       </div>
     </div>
 

@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Date Drop — Halle Hwang</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --paper:  #faf5ec;
+      --white:  #fff;
+      --ink:    #211e19;
+      --muted:  #6e655a;
+      --hair:   rgba(33,30,25,.14);
+
+      /* Date Drop accent — dusty lilac (dreamy / intentional / mature) */
+      --accent:      #8a78b3;
+      --accent-deep: #5b4d82;
+      --accent-soft: #efebf7;
+      --card-ink:    #fbf8ff;
+
+      --sans:  'DM Sans', sans-serif;
+      --mono:  'DM Mono', monospace;
+      --serif: 'Cardo', serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--serif);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+    body::before {
+      content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 9999; opacity: .035;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(251,250,246,.9); backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--hair);
+      height: 71px; display: flex; align-items: center; padding: 0 clamp(20px, 4vw, 40px);
+    }
+    .nav-name,
+    .nav-name:link, .nav-name:visited, .nav-name:hover, .nav-name:focus, .nav-name:active {
+      font-family: var(--serif); font-size: 20px; color: var(--ink);
+      text-decoration: none; border-bottom: none;
+      display: inline-block; transform: rotate(-9.61deg); transform-origin: top left;
+      margin-right: auto; margin-top: 6px;
+    }
+    .nav-links { display: flex; gap: clamp(20px, 3vw, 40px); list-style: none; }
+    .nav-links a {
+      font-family: var(--serif); font-size: 16px; color: var(--ink); text-decoration: none;
+      position: relative; padding-bottom: 3px;
+    }
+    .nav-links a::after {
+      content: ""; position: absolute; left: 0; bottom: 0; width: 100%; height: 1px;
+      background: var(--ink); transform: scaleX(0); transform-origin: left; transition: transform .28s ease;
+    }
+    .nav-links a:hover::after { transform: scaleX(1); }
+    .nav-links a.active::after { transform: scaleX(1); }
+
+    /* ── LAYOUT ── */
+   .wrap { max-width: 1080px; margin: 0 auto; padding: 0 clamp(24px, 6vw, 64px); }
+    .reading { max-width: 900px; }
+
+    .backlink {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--mono); font-size: 12px; letter-spacing: .16em; text-transform: uppercase;
+      color: var(--muted); text-decoration: none; margin: 36px 0 0;
+      transition: color .2s;
+    }
+    .backlink:hover { color: var(--accent-deep); }
+    .backlink span { transition: transform .2s; }
+    .backlink:hover span { transform: translateX(-3px); }
+
+    /* ── HERO (banner) ── */
+    .hero {
+      display: flex; flex-direction: column; gap: clamp(28px, 4vw, 44px);
+      padding: clamp(14px, 2.5vw, 22px) 0 clamp(48px, 7vw, 80px);
+    }
+    .eyebrow {
+      font-family: var(--mono); font-size: 12px; letter-spacing: .22em; text-transform: uppercase;
+      color: var(--accent-deep); margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-family: var(--serif); font-weight: 700; font-size: clamp(40px, 5.6vw, 64px);
+      line-height: 1.04; margin-bottom: 22px;
+    }
+    .dek {
+      font-family: var(--sans); font-weight: 300; font-size: clamp(16px, 1.6vw, 18px);
+      line-height: 1.65; color: #4a443b; max-width: 82ch;
+    }
+    .meta {
+      display: flex; flex-wrap: wrap; gap: 10px 18px; margin-top: 30px;
+      padding-top: 26px; border-top: 1px solid var(--hair);
+    }
+    .meta div { min-width: 0; }
+    .meta dt {
+      font-family: var(--mono); font-size: 10.5px; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 5px;
+    }
+    .meta dd { font-family: var(--sans); font-size: 14px; font-weight: 400; color: var(--ink); }
+    .meta > div { padding-right: 18px; border-right: 1px solid var(--hair); }
+    .meta > div:last-child { border-right: 0; padding-right: 0; }
+
+    .hero-banner { width: 100%; background: var(--accent-soft); }
+    .hero-banner .frame {
+      width: 100%;
+      overflow: hidden;
+      aspect-ratio: 16 / 7;
+      max-height: 80vh;
+    }
+    .hero-banner video, .hero-banner img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    /* ── SECTIONS ── */
+    section.block { padding: clamp(38px, 5vw, 56px) 0; border-top: 1px solid var(--hair); }
+    .block-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 24px; }
+    .step-num {
+      font-family: var(--mono); font-size: 13px; font-weight: 500; color: var(--accent);
+      letter-spacing: .05em; padding-top: 4px;
+    }
+    .block h2 { font-family: var(--serif); font-weight: 700; font-size: clamp(26px, 3.2vw, 34px); line-height: 1.1; }
+    .block p {
+      font-family: var(--sans); font-weight: 300; font-size: 16px; line-height: 1.72; color: #3c372f;
+      margin-bottom: 16px;
+    }
+    .block p:last-child { margin-bottom: 0; }
+    .todo {
+      background: var(--accent-soft); color: var(--accent-deep); font-style: italic;
+      padding: 1px 7px; border-radius: 4px; border: 1px dashed rgba(91,77,130,.5);
+    }
+
+    /* brand pillar cards */
+    .req-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 6px; }
+    .req {
+      background: var(--white); border: 1px solid var(--hair); border-radius: 14px;
+      padding: 24px 22px 26px; position: relative;
+    }
+    .req .rnum {
+      font-family: var(--mono); font-size: 11px; font-weight: 500; color: var(--accent);
+      letter-spacing: .16em; text-transform: uppercase; margin-bottom: 8px; display: block;
+    }
+    .req h3 {
+      font-family: var(--serif); font-weight: 700; font-size: 22px; line-height: 1.1;
+      margin-bottom: 10px;
+    }
+    .req p { font-family: var(--sans); font-weight: 300; font-size: 14.5px; line-height: 1.6; margin: 0; color: #3c372f; }
+
+    /* checklist */
+    .check { list-style: none; margin: 6px 0 0; display: grid; gap: 12px; }
+    .check li {
+      font-family: var(--sans); font-weight: 300; font-size: 15.5px; line-height: 1.55; color: #3c372f;
+      padding-left: 30px; position: relative;
+    }
+    .check li::before {
+      content: ""; position: absolute; left: 0; top: 7px;
+      width: 16px; height: 9px; border-left: 2px solid var(--accent); border-bottom: 2px solid var(--accent);
+      transform: rotate(-45deg);
+    }
+    .check li strong { font-weight: 500; color: var(--ink); }
+
+    /* pill list */
+    .pills { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+    .pills span {
+      font-family: var(--sans); font-size: 14px; font-weight: 400; color: var(--accent-deep);
+      background: var(--accent-soft); border: 1px solid rgba(91,77,130,.25);
+      padding: 8px 16px; border-radius: 999px;
+    }
+
+    /* ── INSTAGRAM REELS GALLERY ── */
+    .reels { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 28px; }
+    .reel {
+      position: relative; aspect-ratio: 9 / 16; overflow: hidden;
+      border: 8px solid var(--white); border-radius: 24px;
+      box-shadow: 0 28px 55px -32px rgba(33,30,25,.45);
+      background: var(--accent-soft);
+    }
+    .reel video, .reel img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    /* placeholder shown until you drop in a real reel (see comment in markup) */
+    .reel-ph {
+      position: absolute; inset: 0; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 12px;
+      color: var(--accent-deep); text-align: center;
+      background:
+        radial-gradient(120% 90% at 50% 0%, rgba(138,120,179,.18), transparent 60%),
+        var(--accent-soft);
+    }
+    .reel-ph .play {
+      width: 46px; height: 46px; border-radius: 50%; background: var(--white);
+      display: grid; place-items: center; box-shadow: 0 8px 20px -10px rgba(91,77,130,.6);
+    }
+    .reel-ph .play::after {
+      content: ""; width: 0; height: 0; margin-left: 3px;
+      border-left: 13px solid var(--accent); border-top: 8px solid transparent; border-bottom: 8px solid transparent;
+    }
+    .reel-ph span {
+      font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase;
+    }
+    .reels-foot {
+      display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-top: 18px;
+    }
+    .reels-note { font-family: var(--sans); font-weight: 300; font-size: 14px; color: var(--muted); margin: 0; }
+    .ig-link {
+      font-family: var(--mono); font-size: 12px; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--accent-deep); text-decoration: none; display: inline-flex; align-items: center; gap: 7px;
+      margin-left: auto;
+    }
+    .ig-link span { transition: transform .2s; }
+    .ig-link:hover span { transform: translate(2px,-2px); }
+
+    /* result block */
+    .result {
+      background: var(--accent); color: var(--card-ink); border-radius: 24px;
+      padding: clamp(40px, 6vw, 64px); margin: clamp(48px, 7vw, 80px) 0;
+    }
+    .result .eyebrow { color: rgba(251,248,255,.8); }
+    .result h2 { font-family: var(--serif); font-weight: 700; font-size: clamp(28px, 3.6vw, 40px); line-height: 1.08; margin-bottom: 22px; }
+    .result p { font-family: var(--sans); font-weight: 300; font-size: 17px; line-height: 1.75; color: rgba(251,248,255,.95); margin-bottom: 16px; max-width: 62ch; }
+    .result p:last-child { margin-bottom: 0; }
+
+    /* footer nav */
+    .pagefoot {
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;
+      padding: 40px 0 72px;
+    }
+    .pagefoot a {
+      font-family: var(--mono); font-size: 13px; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--ink); text-decoration: none; display: inline-flex; gap: 8px; align-items: center;
+      transition: color .2s;
+    }
+    .pagefoot a:hover { color: var(--accent-deep); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 820px) {
+      .hero-banner .frame { aspect-ratio: 16 / 10; }
+      .req-grid { grid-template-columns: 1fr; }
+      .reels { grid-template-columns: 1fr 1fr; }
+      .ig-link { margin-left: 0; }
+    }
+    @media (max-width: 520px) {
+      .reels { grid-template-columns: 1fr; max-width: 320px; margin-inline: auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-name">Halle Hwang</a>
+    <ul class="nav-links">
+      <!-- <li><a href="index.html" class="active">Projects</a></li> -->
+      <li><a href="copenhagen2.html">Copenhagen</a></li>
+      <li><a href="yosemite2.html">Yosemite</a></li>
+      <li><a href="art.html">Art</a></li>
+    </ul>
+  </nav>
+
+  <!-- FULL-WIDTH HERO BANNER -->
+  <div class="hero-banner">
+    <!-- Swap in a brand graphic, a reel cover, or a still from the campaign -->
+    <div class="frame"><video src="img/denny.mp4" autoplay muted loop playsinline preload="auto"></video></div>
+  </div>
+
+  <div class="wrap">
+    <a href="index.html#projects" class="backlink"><span>←</span> All projects</a>
+
+    <!-- HERO TEXT -->
+    <header class="hero">
+      <div>
+        <div class="eyebrow">Project 02 · Social Branding &amp; Content</div>
+        <h1>Date Drop</h1>
+        <p class="dek">Building the social media branding and a short-form video presence for a University of Washington dating app — dreamy, intentional, and made for students who actually want to connect.</p>
+        <dl class="meta">
+          <div>
+            <dt>Role</dt>
+            <dd>Social Branding &amp; Content Strategy</dd>
+          </div>
+          <div>
+            <dt>Timeline</dt>
+            <dd>2 weeks</dd>
+          </div>
+          <div>
+            <dt>Focus</dt>
+            <dd>Branding · Instagram Video · Positioning</dd>
+          </div>
+        </dl>
+      </div>
+    </header>
+
+    <!-- 01 THE BRIEF -->
+    <section class="block">
+      <div class="block-head"><span class="step-num">01</span><h2>The brief</h2></div>
+      <div class="reading">
+        <p>Date Drop is a dating app that started out at Stanford. This project was specific to the University of Washington launch. 
+        Over the course of a month, I developed Date Drop's social media branding and content strategy around a central idea: gentle, caring intentionality from a woman's perspective. 
+        From the Instagram videos I produced to the messaging itself, every creative decision was designed to romanticize the mundane and make everyday college life feel more meaningful and fun.
+        </p>
+        <p>
+          My strategy centered on relatability and authenticity. Instead of high-pressure swiping or generic “hey wyd” messages, Date Drop emphasizes real compatibility through shared interests and personality traits. 
+          I also made accessibility a core quality: since most college students can't afford fancy dinners or drinks regularly, 
+          the content draws our attention to low-cost, high-connection experiences. I was inspired by the quote many girls loved from Set It Up: “Best meal I ever had was a $5 pizza thrown up on a fire escape.” 
+          This frames connection around the experience, not popularity or cost.
+        </p>
+        <p>The goal was a presence that feels instantly different from the swipe-fast competition, and that speaks directly to students looking for something real.</p>
+      </div>
+    </section>
+
+    <!-- 02 MARKET CONTEXT -->
+    <section class="block">
+      <div class="block-head"><span class="step-num">02</span><h2>The Research</h2></div>
+      <div class="reading">
+       <p>I started by reading the market. Tinder and Bumble lean on volume and speed --> endless swiping and low-commitment matching. 
+        That gave Date Drop a clear lane to own: a slower, more intentional way to meet someone you're genuinely compatible with.</p>
+        <p>Then, I interviewed 15 college students to understand what they liked and disliked in video content, 
+          what actually caught their attention mid-scroll, and what would make them want to try a dating app based on the videos alone.</p>
+        <p>Every creative content decision tied back to that positioning.</p>
+      </div>
+      <div class="pills">
+        <span>Compatibility over volume</span>
+        <span>Connection over hookups</span>
+        <span>Intention over speed</span>
+        <span>Student-first</span>
+      </div>
+    </section>
+
+    <!-- 03 BRAND VIBE -->
+    <section class="block">
+      <div class="block-head"><span class="step-num">03</span><h2>The brand vibe</h2></div>
+      <p class="reading">I chose three words to center this project around to guide every post, caption, and cut.</p>
+      <div class="req-grid">
+        <div class="req">
+          <span class="rnum">01</span>
+          <h3>Dreamy</h3>
+          <p>Soft, graphic-led visuals from the website give the brand a romantic, almost cinematic feel— 
+            it looks like the kind of connection users are hoping to find.</p>
+        </div>
+        <div class="req">
+          <span class="rnum">02</span>
+          <h3>Intentional</h3>
+          <p>The algorithm matches you with someone you're actually compatible with, so every match feels considered rather than random.</p>
+        </div>
+        <div class="req">
+          <span class="rnum">03</span>
+          <h3>Mature</h3>
+          <p>It isn't built for hookups. Users come looking for a real connection, and the tone of voice reflects that throughout.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 DIFFERENTIATOR -->
+    <section class="block">
+      <div class="block-head"><span class="step-num">04</span><h2>What sets it apart</h2></div>
+      <div class="reading">
+        <p>Date Drop stands out from other dating apps because it intentionally adds friction. 
+          Instead of letting people swipe endlessly, the app asks users to answer thoughtful questions and put real effort into their profiles.
+          That extra work helps filter out people who are only there casually or looking for something quick.</p>
+        <p>For the people who stay, that effort is part of the value. 
+          It leads to more intentional matches, stronger first conversations, and a better chance of meeting someone they actually connect with, instead of just collecting more matches that go nowhere. </p>
+      </div>
+      <ul class="check" style="margin-top:18px; max-width:760px;">
+        <li>Profile effort <strong>filters out casual users</strong> before they ever match.</li>
+        <li>The questions <strong>signal intent</strong>, so matches start with something in common.</li>
+        <li>It <strong>deters the quick-fix crowd</strong>— the opposite of endless swiping.</li>
+        <li>This is the <strong>core differentiator</strong> the social content leads with.</li>
+      </ul>
+    </section>
+
+    <!-- 05 CONTENT -->
+    <section class="block">
+      <div class="block-head"><span class="step-num">05</span><h2>The content</h2></div>
+      <div class="reading">
+        <p>I produced a series of short-form videos for Instagram that carry the dreamy, intentional tone into motion.</p>
+      </div>
+
+
+      <div class="reels">
+        <div class="reel">
+          <video src="img/wini-elliott.mp4" playsinline muted loop controls preload="metadata"></video>
+        </div>
+        <div class="reel">
+          <video src="img/hannah-james.mp4" playsinline muted loop controls preload="metadata"></video>
+        </div>
+        <div class="reel">
+          <video src="img/naomi-danny.mp4" playsinline muted loop controls preload="metadata"></video>
+        </div>
+      </div>
+
+      <div class="reels-foot">
+        <p class="reels-note">Vertical 9:16 reels, designed for the Instagram feed and Stories.</p>
+        <a class="ig-link" href="https://www.instagram.com/" target="_blank" rel="noopener">
+          View on Instagram <span>↗</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- RESULT -->
+    <section class="result">
+      <div class="eyebrow">The outcome</div>
+      <h2>A brand that signals intention before the first swipe.</h2>
+      <p>The result is a cohesive social presence that looks and feels distinct from the swipe-fast competition.
+         It communicates Date Drop's slower, more intentional promise the moment a student finishes setting up their profile.</p>
+      <p>Paired with a content strategy the team can keep building on, the branding gives Date Drop a clear, ownable voice in a crowded category.</p>
+    </section>
+
+    <!-- FOOTER NAV -->
+    <div class="pagefoot">
+      <a href="index.html#projects"><span>←</span> Back to all projects</a>
+      <a href="mailto:halle7515@gmail.com">Get in touch →</a>
+    </div>
+
+  </div>
+
+</body>
+</html>

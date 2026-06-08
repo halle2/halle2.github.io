@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dental Website Redesign — Halle Hwang</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --paper:  #faf5ec;
+      --white:  #fff;
+      --ink:    #211e19;
+      --muted:  #6e655a;
+      --hair:   rgba(33,30,25,.14);
+
+      --sage:      #7F915B;
+      --sage-deep: #5f6f3f;
+      --sage-soft: #eef1e6;
+      --card-ink:  #fdf6ea;
+
+      --sans:  'DM Sans', sans-serif;
+      --mono:  'DM Mono', monospace;
+      --serif: 'Cardo', serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--serif);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+    body::before {
+      content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 9999; opacity: .035;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(251,250,246,.9); backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--hair);
+      height: 71px; display: flex; align-items: center; padding: 0 clamp(20px, 4vw, 40px);
+    }
+    .nav-name,
+    .nav-name:link, .nav-name:visited, .nav-name:hover, .nav-name:focus, .nav-name:active {
+      font-family: var(--serif); font-size: 20px; color: var(--ink);
+      text-decoration: none; border-bottom: none;
+      display: inline-block; transform: rotate(-9.61deg); transform-origin: top left;
+      margin-right: auto; margin-top: 6px;
+    }
+    .nav-links { display: flex; gap: clamp(20px, 3vw, 40px); list-style: none; }
+    .nav-links a {
+      font-family: var(--serif); font-size: 16px; color: var(--ink); text-decoration: none;
+      position: relative; padding-bottom: 3px;
+    }
+    .nav-links a::after {
+      content: ""; position: absolute; left: 0; bottom: 0; width: 100%; height: 1px;
+      background: var(--ink); transform: scaleX(0); transform-origin: left; transition: transform .28s ease;
+    }
+    .nav-links a:hover::after { transform: scaleX(1); }
+    .nav-links a.active::after { transform: scaleX(1); }
+
+    /* ── LAYOUT ── */
+   .wrap { max-width: 1080px; margin: 0 auto; padding: 0 clamp(24px, 6vw, 64px); }
+    .reading { max-width: 900px; }
+
+    .backlink {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--mono); font-size: 12px; letter-spacing: .16em; text-transform: uppercase;
+      color: var(--muted); text-decoration: none; margin: 36px 0 0;
+      transition: color .2s;
+    }
+    .backlink:hover { color: var(--sage-deep); }
+    .backlink span { transition: transform .2s; }
+    .backlink:hover span { transform: translateX(-3px); }
+
+    /* ── HERO ── */
+    .hero {
+      display: flex; flex-direction: column; gap: clamp(28px, 4vw, 44px);
+      padding: clamp(28px, 4vw, 40px) 0 clamp(48px, 7vw, 80px);
+    }
+    .eyebrow {
+      font-family: var(--mono); font-size: 12px; letter-spacing: .22em; text-transform: uppercase;
+      color: var(--sage-deep); margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-family: var(--serif); font-weight: 700; font-size: clamp(40px, 5.6vw, 64px);
+      line-height: 1.04; margin-bottom: 22px;
+    }
+    .dek {
+      font-family: var(--sans); font-weight: 300; font-size: clamp(16px, 1.6vw, 18px);
+      line-height: 1.65; color: #4a443b; max-width: 72ch;
+    }
+    .meta {
+      display: flex; flex-wrap: wrap; gap: 10px 18px; margin-top: 30px;
+      padding-top: 26px; border-top: 1px solid var(--hair);
+    }
+    .meta div { min-width: 0; }
+    .meta dt {
+      font-family: var(--mono); font-size: 10.5px; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 5px;
+    }
+    .meta dd { font-family: var(--sans); font-size: 14px; font-weight: 400; color: var(--ink); }
+    .meta > div { padding-right: 18px; border-right: 1px solid var(--hair); }
+    .meta > div:last-child { border-right: 0; padding-right: 0; }
+
+    .hero-media .frame {
+      border: 8px solid var(--white); border-radius: 26px; overflow: hidden;
+      box-shadow: 0 26px 50px -28px rgba(33,30,25,.4);
+      aspect-ratio: 16 / 7;
+    }
+    .hero-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    /* ── SECTIONS ── */
+    section.block { padding: clamp(38px, 5vw, 56px) 0; border-top: 1px solid var(--hair); }
+    .block-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 24px; }
+    .step-num {
+      font-family: var(--mono); font-size: 13px; font-weight: 500; color: var(--sage);
+      letter-spacing: .05em; padding-top: 4px;
+    }
+    .block h2 { font-family: var(--serif); font-weight: 700; font-size: clamp(26px, 3.2vw, 34px); line-height: 1.1; }
+    .block p {
+      font-family: var(--sans); font-weight: 300; font-size: 16px; line-height: 1.72; color: #3c372f;
+      margin-bottom: 16px;
+    }
+    .block p:last-child { margin-bottom: 0; }
+    .todo {
+      background: var(--sage-soft); color: var(--sage-deep); font-style: italic;
+      padding: 1px 7px; border-radius: 4px; border: 1px dashed rgba(95,111,63,.5);
+    }
+
+    /* requirement / feature cards */
+    .req-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 6px; }
+    .req {
+      background: var(--white); border: 1px solid var(--hair); border-radius: 14px;
+      padding: 22px 22px 24px; position: relative;
+    }
+    .req .rnum {
+      font-family: var(--mono); font-size: 12px; font-weight: 500; color: var(--sage);
+      letter-spacing: .1em; margin-bottom: 12px; display: block;
+    }
+    .req p { font-size: 14.5px; line-height: 1.6; margin: 0; }
+
+    /* checklist */
+    .check { list-style: none; margin: 6px 0 0; display: grid; gap: 12px; }
+    .check li {
+      font-family: var(--sans); font-weight: 300; font-size: 15.5px; line-height: 1.55; color: #3c372f;
+      padding-left: 30px; position: relative;
+    }
+    .check li::before {
+      content: ""; position: absolute; left: 0; top: 7px;
+      width: 16px; height: 9px; border-left: 2px solid var(--sage); border-bottom: 2px solid var(--sage);
+      transform: rotate(-45deg);
+    }
+    .check li strong { font-weight: 500; color: var(--ink); }
+
+    /* pill list (top features) */
+    .pills { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+    .pills span {
+      font-family: var(--sans); font-size: 14px; font-weight: 400; color: var(--sage-deep);
+      background: var(--sage-soft); border: 1px solid rgba(95,111,63,.25);
+      padding: 8px 16px; border-radius: 999px;
+    }
+
+    /* two-column needs */
+    .needs { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 4vw, 56px); }
+    .needs h3 {
+      font-family: var(--mono); font-size: 12px; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--sage-deep); margin-bottom: 18px; padding-bottom: 10px; border-bottom: 1px solid var(--hair);
+    }
+
+    /* ── BROWSER-FRAMED SCREEN CAPTURES ── */
+    .screens { margin-top: 30px; }
+    .browser {
+      border: 8px solid var(--white); border-radius: 18px; overflow: hidden;
+      background: var(--white);
+      box-shadow: 0 30px 60px -34px rgba(33,30,25,.45);
+    }
+    .browser-bar {
+      display: flex; align-items: center; gap: 7px;
+      padding: 11px 15px; background: #f1ebdf; border-bottom: 1px solid var(--hair);
+    }
+    .browser-bar .dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(33,30,25,.16); }
+    .browser-bar .dot:nth-child(1) { background: #d8a39a; }
+    .browser-bar .dot:nth-child(2) { background: #ddca99; }
+    .browser-bar .dot:nth-child(3) { background: #a9bd86; }
+    .browser-bar .url {
+      margin-left: 12px; font-family: var(--mono); font-size: 11px; letter-spacing: .03em;
+      color: var(--muted); background: var(--paper); border: 1px solid var(--hair);
+      padding: 4px 14px; border-radius: 999px;
+      flex: 1; max-width: 360px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .browser-view {
+      position: relative; max-height: 580px; overflow-y: auto; background: var(--white);
+      -webkit-overflow-scrolling: touch; scroll-behavior: smooth;
+    }
+    .browser-view img { width: 100%; display: block; }
+    /* slim, on-brand scrollbar */
+    .browser-view::-webkit-scrollbar { width: 9px; }
+    .browser-view::-webkit-scrollbar-thumb { background: rgba(127,145,91,.45); border-radius: 999px; border: 2px solid var(--white); }
+    .browser-view::-webkit-scrollbar-track { background: transparent; }
+    .screens-cap {
+      font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--muted); margin-top: 14px; text-align: center;
+    }
+
+    /* ── INTERACTIVE PROTOTYPE EMBED ── */
+    .proto-embed {
+      margin-top: 28px; position: relative; width: 100%; aspect-ratio: 16 / 9;
+      border: 8px solid var(--white); border-radius: 18px; overflow: hidden;
+      background: var(--sage-soft);
+      box-shadow: 0 30px 60px -34px rgba(33,30,25,.45);
+    }
+    .proto-embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+    .proto-foot {
+      display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+      margin-top: 16px;
+    }
+    .proto-note {
+      font-family: var(--sans); font-weight: 300; font-size: 14px; color: var(--muted); margin: 0;
+    }
+    .proto-link {
+      font-family: var(--mono); font-size: 12px; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--sage-deep); text-decoration: none; display: inline-flex; align-items: center; gap: 7px;
+      margin-left: auto;
+    }
+    .proto-link span { transition: transform .2s; }
+    .proto-link:hover span { transform: translate(2px,-2px); }
+
+    /* result block */
+    .result {
+      background: var(--sage); color: var(--card-ink); border-radius: 24px;
+      padding: clamp(40px, 6vw, 64px); margin: clamp(48px, 7vw, 80px) 0;
+    }
+    .result .eyebrow { color: rgba(253,246,234,.8); }
+    .result h2 { font-family: var(--serif); font-weight: 700; font-size: clamp(28px, 3.6vw, 40px); line-height: 1.08; margin-bottom: 22px; }
+    .result p { font-family: var(--sans); font-weight: 300; font-size: 17px; line-height: 1.75; color: rgba(253,246,234,.95); margin-bottom: 16px; max-width: 62ch; }
+    .result p:last-child { margin-bottom: 0; }
+
+    /* footer nav between projects */
+    .pagefoot {
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;
+      padding: 40px 0 72px;
+    }
+    .pagefoot a {
+      font-family: var(--mono); font-size: 13px; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--ink); text-decoration: none; display: inline-flex; gap: 8px; align-items: center;
+      transition: color .2s;
+    }
+    .pagefoot a:hover { color: var(--sage-deep); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 820px) {
+      .hero-media .frame { aspect-ratio: 16 / 10; }
+      .req-grid { grid-template-columns: 1fr; }
+      .needs { grid-template-columns: 1fr; }
+      .browser-view { max-height: 480px; }
+      .proto-embed { aspect-ratio: 4 / 3; }
+      .proto-link { margin-left: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-name">Halle Hwang</a>
+    <ul class="nav-links">
+      <!-- <li><a href="index.html" class="active">Projects</a></li> -->
+      <li><a href="copenhagen2.html">Copenhagen</a></li>
+      <li><a href="yosemite2.html">Yosemite</a></li>
+      <li><a href="art.html">Art</a></li>
+    </ul>
+  </nav>
+
+  <div class="wrap">
+    <a href="index.html#projects" class="backlink"><span>←</span> All projects</a>
+
+    <!-- HERO -->
+    <header class="hero">
+      <div class="hero-media">
+        <div class="frame"><img src="img/dental.jpg" alt="Dental Website Redesign" /></div>
+      </div>
+      <div>
+        <div class="eyebrow">Project 03 · UX Research &amp; Redesign</div>
+        <h1>Dental Website Redesign</h1>
+        <p class="dek">Redesigning a local dental practice’s website to make it easy for patients to find key details
+           such as hours, booking, services, and a sense of whether the practice is the right fit.</p>
+        <dl class="meta">
+          <div>
+            <dt>Role</dt>
+            <dd>UX Research &amp; Design</dd>
+          </div>
+          <div>
+            <dt>Research</dt>
+            <dd>7 interviews · ages 19–54</dd>
+          </div>
+          <div>
+            <dt>Focus</dt>
+            <dd>Clarity · Trust · Conversion</dd>
+          </div>
+        </dl>
+      </div>
+    </header>
+
+    <!-- 01 BACKGROUND -->
+    <section class="block">
+      <div class="block-head"><span class="step-num">01</span><h2>Background</h2></div>
+      <div class="reading">
+        <p>This dental practice was recently acquired by a new owner. The original website made it difficult for patients to quickly find the information they cared about most: hours, location, booking, services, and whether the practice felt like the right fit.</p>
+        <p>Furthermore, the site needed to better highlight what made the practice different, such as the dentist's background, continuing education, and the patient experience. The client also asked for green, earthy tones to create a calming and trustworthy atmosphere,
+          as well as match the practice's branding.</p>
+      </div>
+    </section>
+
+    <!-- 02 REQUIREMENTS -->
+    <section class="block">
+      <div class="block-head"><span class="step-num">02</span><h2>Design requirements</h2></div>
+      <p class="reading">I set a few guiding constraints before designing, so the site would stay focused and easy to use.</p>
+      <div class="req-grid">
+        <div class="req">
+          <span class="rnum">R1</span>
+          <p>Navigation must be simple, intuitive, and task-focused. The goal is for users to find essential information in as few steps as possible.</p>
+        </div>
+        <div class="req">
+          <span class="rnum">R2</span>
+          <p>Content blurbs stay concise, ideally 3–5 sentences, to improve scanning and reduce overload.</p>
+        </div>
+        <div class="req">
+          <span class="rnum">R3</span>
+          <p>Visual design balances professionalism with warmth, reflecting both expertise and community connection.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 RESEARCH -->
+    <section class="block">
+      <div class="block-head"><span class="step-num">03</span><h2>Research &amp; design process</h2></div>
+      <div class="reading">
+        <p>I interviewed 7 people, ages 19–54, to understand what potential patients actually look for when visiting a dental website. The features that mattered most were clear:</p>
+      </div>
+      <div class="pills">
+        <span>Booking &amp; contact</span>
+        <span>Testimonials</span>
+        <span>Dentist credentials</span>
+        <span>Services offered</span>
+        <span>What sets them apart</span>
+      </div>
+      <div class="reading" style="margin-top:24px;">
+        <p>Though many websites focus on the technical aspects of dental care, I found that most users did not want long, in-depth explanations of every treatment that the practice offers. 
+          Instead, they wanted a clear homepage summary, a short explanation of the practice's philosophy, and easy access to the important information.</p>
+        <p>I also considered how the site could better reflect the practice as a community hub, as requested by the client, while appealing to younger users with a more modern and welcoming visual style.</p>
+      </div>
+    </section>
+
+    <!-- 04 NEEDS -->
+    <section class="block">
+      <div class="block-head"><span class="step-num">04</span><h2>What users &amp; the business needed</h2></div>
+      <div class="needs">
+        <div>
+          <h3>User needs</h3>
+          <ul class="check">
+            <li>Quickly find <strong>hours, location, contact, and booking</strong> from the homepage or main navigation.</li>
+            <li>Understand the services offered <strong>without reading long, technical explanations.</strong></li>
+            <li>Get a sense of the office <strong>atmosphere, team, and vibe</strong> through visuals and concise content —> aesthetics and emotional fit drive the decision.</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Business needs</h3>
+          <ul class="check">
+            <li>Highlight the dentist's <strong>qualifications, certifications, and ongoing education</strong>, including specialized training.</li>
+            <li>Position the practice as a <strong>community-oriented, approachable</strong> local business.</li>
+            <li>Support conversion by making it easy to <strong>contact the practice or book</strong> an appointment.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 REDESIGN -->
+    <section class="block">
+      <div class="block-head"><span class="step-num">05</span><h2>The redesign</h2></div>
+      <div class="reading">
+        <p>I rebuilt the homepage to act as a summary of the practice — prioritizing the most important information and cutting unnecessary content. Key details became easy to scan, while new sections were added to build trust:</p>
+      </div>
+      <ul class="check" style="margin-top:18px; max-width:760px;">
+        <li>The dentist's <strong>certifications and ongoing education</strong></li>
+        <li><strong>Testimonials</strong> from real patients</li>
+        <li>A <strong>photo gallery</strong> of the office and team</li>
+        <li>A clearer explanation of the practice's <strong>approach and philosophy</strong></li>
+      </ul>
+
+        <div class="screens">
+        <div class="browser">
+          <div class="browser-bar">
+            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            <span class="url">dentibellidds.com</span>
+          </div>
+          <div class="browser-view">
+            <img src="img/denti-home.png" alt="Before" />
+          </div>
+        </div>
+        <p class="screens-cap">Current website homepage· scroll within the frame to view the full page</p>
+      </div>
+
+      <!-- FULL-PAGE SCREEN CAPTURES -->
+      <div class="screens">
+        <div class="browser">
+          <div class="browser-bar">
+            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            <span class="url">maycreekdentalstudio.com</span>
+          </div>
+          <div class="browser-view">
+            <img src="img/dental-home.png" alt="Redesigned homepage — hero, ‘Why Choose Us,’ and services overview" />
+          </div>
+        </div>
+        <p class="screens-cap">Final homepage · scroll within the frame to view the full page</p>
+      </div>
+    </section>
+
+    <!-- 06 PROTOTYPE -->
+    <section class="block">
+      <div class="block-head"><span class="step-num">06</span><h2>Interactive prototype</h2></div>
+      <div class="reading">
+        <p>The high-fidelity prototype lets you click through three of the pages in the redesigned flow. Practice and staff information are anonymized for privacy.</p>
+      </div>
+      <div class="proto-embed">
+        <iframe
+          src="https://embed.figma.com/proto/YmbN1DAvVMz5vPXNjjcizj/Dental-Redesign?node-id=18-28&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&embed-host=share"
+          title="Dental Redesign — interactive Figma prototype"
+          allowfullscreen
+          loading="lazy"></iframe>
+      </div>
+      <div class="proto-foot">
+        <p class="proto-note">Built in Figma. Click through directly above, or open it full-screen.</p>
+        <a class="proto-link"
+           href="https://www.figma.com/proto/YmbN1DAvVMz5vPXNjjcizj/Dental-Redesign?node-id=18-28&scaling=scale-down&content-scaling=fixed&page-id=0%3A1"
+           target="_blank" rel="noopener">Open in Figma <span>↗</span></a>
+      </div>
+    </section>
+
+    <!-- RESULT -->
+    <section class="result">
+      <div class="eyebrow">The outcome</div>
+      <h2>A clearer, more patient-friendly experience.</h2>
+      <p>The final design helps users quickly understand who the practice is, what it offers, and why they should choose it. By balancing clarity, trust, and visual appeal, the site better supports both first-time visitors and returning patients.</p>
+      <p>The redesign reflects the practice's personality while making it easier for people to take the next step and book an appointment.</p>
+    </section>
+
+    <!-- FOOTER NAV -->
+    <div class="pagefoot">
+      <a href="index.html#projects"><span>←</span> Back to all projects</a>
+      <a href="mailto:halle7515@gmail.com">Get in touch →</a>
+    </div>
+
+  </div>
+
+</body>
+</html>
