@@ -42,7 +42,7 @@
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     }
 
-    .wrap { max-width: 1240px; margin: 0 auto; padding: 0 48px; }
+    .wrap { max-width: 1240px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 48px); }
 
     /* small tracked label utility */
     .kicker {
@@ -120,7 +120,7 @@
     .hero-text .subtitle { display: block; font-size: 28px; color: #fff; margin-top: 8px; }
 
     /* ── STORY SPREAD ── */
-    .story { padding: 84px 0 16px; }
+    .story { padding-top: 84px; padding-bottom: 16px; }
     .story-head { display: flex; align-items: flex-end; gap: 30px; margin-bottom: 44px; }
     .story-head .rule { flex: 1; height: 1px; background: var(--hair-strong); margin-bottom: 40px; }
     .autumn-title {
@@ -142,7 +142,7 @@
 
     /* ── PULL QUOTE ── */
     .pullquote {
-      text-align: center; padding: 86px 0; margin: 64px auto;
+      text-align: center; padding-top: 86px; padding-bottom: 86px; margin: 64px auto;
       border-top: 1px solid var(--hair); border-bottom: 1px solid var(--hair);
     }
     .pullquote blockquote {
@@ -196,17 +196,64 @@
     /* ── PHOTO STRIP ── */
     .strip { position: relative; margin-top: 8px; margin-bottom: 72px; }
     .strip img { width: 100%; display: block; filter: saturate(.94); }
-    .strip .cap {
-      display:flex; justify-content: space-between;
-      padding: 12px 48px 0;
-    }
-    .strip .cap span { font-family: var(--sans); font-size: 10.5px; letter-spacing:.26em; text-transform:uppercase; color: var(--muted); }
 
+    /* ── TABLET (original breakpoint): stack columns + rec grid ── */
     @media (max-width: 820px) {
       .columns, .ab-grid { grid-template-columns: 1fr; }
       .ab-col { border-left: 0; padding-left: 0; border-top: 1px solid var(--hair); }
       .ab-col:first-child { border-top: 0; }
       .hero-text { left: 28px; right: 28px; }
+    }
+
+    /* ════════════════════════════════════════════════
+       PHONE  —  scale the oversized hero type, pull in
+       the big section paddings, tidy the photo caption.
+       ════════════════════════════════════════════════ */
+    @media (max-width: 768px) {
+      /* hero */
+      .hero-band { padding: 14px; }
+      .hero { height: 62vh; min-height: 420px; }
+      .hero-text { top: 44px; right: 20px; left: 20px; }
+      .hero-text .line1,
+      .hero-text .line2 {
+        font-size: clamp(40px, 13vw, 84px);
+        line-height: 1;
+      }
+      .hero-text .line2 { line-height: 1.06; }
+      .hero-text .subtitle {
+        font-size: clamp(15px, 4.4vw, 26px);
+        margin-top: 14px;
+      }
+
+      /* story */
+      .story { padding-top: 52px; padding-bottom: 8px; }
+      .story-head { gap: 18px; margin-bottom: 32px; }
+      .story-head .rule { margin-bottom: 26px; }
+      .autumn-title { font-size: clamp(44px, 12vw, 72px); }
+
+      /* pull quote */
+      .pullquote { padding-top: 56px; padding-bottom: 56px; margin: 40px auto; }
+
+      /* recs */
+      .gingham-band { padding: 48px 20px; }
+      .ab-card { padding: 40px 24px 32px; }
+      .ab-head { margin-bottom: 36px; }
+      .ab-head p { font-size: 17px; }
+
+      /* photo strip caption */
+      .strip { margin-bottom: 48px; }
+      .strip .cap { padding: 12px 24px 0; gap: 14px; flex-wrap: wrap; }
+    }
+
+    /* ── SMALL PHONE: tighten nav + caption ── */
+    @media (max-width: 480px) {
+      nav { padding: 0 16px; }
+      .nav-name { font-size: 17px; }
+      .nav-links { gap: 16px; }
+      .nav-links a { font-size: 14px; }
+
+      .columns .col-1 p:first-of-type::first-letter { font-size: 66px; }
+      .strip .cap { flex-direction: column; gap: 4px; }
     }
   </style>
 </head>
@@ -252,7 +299,7 @@
       </div>
       <div class="col-2">
         <p>That summer was absolutely beautiful. It didn't rain until the end of September, which is practically unheard of. With all of the sun, we spent as much time as we could at the water or in the park with our ciders and beer.</p>
-        <p>Going out for full meals was a bit out of budget, but food was still a big part of how we explored the city. Whether chili cheese tops or 2am kebabs, my friends and I snacked around Copenhagen as we sipped on our beers. A Danish friend once told me it would take 10,000 beers before I started to like the taste — now I can proudly drink a pint of pilsner without making a face.</p>
+        <p>Going out for full meals was a bit out of budget, but food was still a big part of how we explored the city. Whether chili cheese tops or 2am kebabs, my friends and I snacked around Copenhagen as we sipped on our beers. A Danish friend once told me it would take 10,000 beers before I started to like the taste— now I can proudly drink a pint of pilsner without making a face.</p>
         <p>Pastries and coffee with friends were always penciled into my schedule, and the best days were full of them: coffee in the morning, pastries after class, another coffee, homemade dinner, and a bar in the evening.</p>
         <p>One of the biggest culture shocks was the number of strollers left outside cafes and bars. Parents would socialize with their friends and leave their babies bundled up outside. When I asked about it, my Danish friends only said, "why would anyone want to steal a baby?"</p>
       </div>
@@ -333,10 +380,6 @@
   <!-- PHOTO STRIP -->
   <section class="strip">
     <img src="img/photowall2.png" alt="Copenhagen photo wall" />
-    <div class="cap">
-      <span>The Photo Wall</span>
-      <span>Copenhagen · Aug — Dec</span>
-    </div>
   </section>
 
 </body>
