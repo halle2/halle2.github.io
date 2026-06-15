@@ -26,6 +26,7 @@
       --plum:   #B17FBA;;
       --sage:   #7F915B ;
       --ocean:  #1B74AF;
+      --rose:   #e66896;
       --card-ink: #fdf6ea;
 
       --hand: 'Waiting for the Sunrise', cursive;
@@ -172,16 +173,24 @@
     .card-plum  { background: var(--plum); }
     .card-sage  { background: var(--sage); }
     .card-ocean { background: var(--ocean); }
+    .card-rose  { background: var(--rose); }
 
     .project-card[class*="card-"] .project-meta,
     .project-card[class*="card-"] .project-title,
     .project-card[class*="card-"] .project-desc { color: var(--card-ink); }
     .project-card[class*="card-"] .project-meta .tag { border-color: rgba(253,246,234,.55); }
 
+    .project-card.card-rose .project-meta,
+    .project-card.card-rose .project-title,
+    .project-card.card-rose .project-desc { color: #fff; }
+    .project-card.card-rose .project-meta .tag { border-color: rgba(255,255,255,.6); }
+    .card-rose .placeholder { border-color: rgba(255,255,255,.6); color: #fff; background: rgba(255,255,255,.18); }
+
     .card-ochre .project-title { font-family: 'DM Serif Text', serif; }
     .card-plum  .project-title { font-family: 'Alice', serif; }
     .card-sage  .project-title { font-family: 'Cardo', serif; font-weight: 700; }
     .card-ocean .project-title { font-family: var(--mono); font-weight: 500; letter-spacing: -.01em; }
+    .card-rose  .project-title { font-family: 'Alice', serif; }
 
     /* ── VIDEO ── */
     .video-wrapper { position: relative; width: 100%; height: 100%; cursor: pointer; }
@@ -274,10 +283,10 @@
     <div class="hero-right">
       <div class="hero-eyebrow">Portfolio</div>
       <div class="hero-name">Halle Hwang</div>
-      <div class="hero-title">UI/UX Designer, Front-End Developer, &amp; Creative Strategist</div>
+      <div class="hero-title">UX/UI Designer, Front-End Developer, &amp; Creative Strategist</div>
       <p class="hero-bio">
         I recently graduated from the University of Washington with a degree in Informatics, and my work lives somewhere between technology and creativity. 
-        Though I enjoy working with data and code, I'm drawn to UI/UX design, storytelling, and building experiences that are intuitive and meaningful.
+        Though I enjoy working with data and code, I'm drawn to UX/UI design, storytelling, and building experiences that are intuitive and meaningful.
 
       </p>
       <p class="hero-bio">
@@ -292,18 +301,18 @@
   <!-- MARQUEE -->
   <div class="marquee-wrap">
     <div class="marquee-track">
-      <span>My Projects</span><span class="star">✦</span>
-      <span>My Projects</span><span class="star">✦</span>
-      <span>My Projects</span><span class="star">✦</span>
-      <span>My Projects</span><span class="star">✦</span>
-      <span>My Projects</span><span class="star">✦</span>
-      <span>My Projects</span><span class="star">✦</span>
-      <span>My Projects</span><span class="star">✦</span>
-      <span>My Projects</span><span class="star">✦</span>
-      <span>My Projects</span><span class="star">✦</span>
-      <span>My Projects</span><span class="star">✦</span>
-      <span>My Projects</span><span class="star">✦</span>
-      <span>My Projects</span><span class="star">✦</span>
+      <span>My Projects</span>
+      <span>My Projects</span>
+      <span>My Projects</span>
+      <span>My Projects</span>
+      <span>My Projects</span>
+      <span>My Projects</span>
+      <span>My Projects</span>
+      <span>My Projects</span>
+      <span>My Projects</span>
+      <span>My Projects</span>
+      <span>My Projects</span>
+      <span>My Projects</span>
     </div>
   </div>
 
@@ -357,9 +366,7 @@
     <!-- 04 Air Travel & COVID-19 -->
     <div class="project-card card-ocean reverse">
       <div class="project-media">
-         <div class="project-media">
         <div class="media-frame"><a href="https://halle.shinyapps.io/final-project-halle2/"><img src="img/ryanair.jpeg" alt="Covid-19 and Air Travel" /></a></div>
-      </div>
       </div>
       <div class="project-text">
         <div class="project-meta"><span class="num">04</span><span class="tag">Data Science</span></div>
@@ -372,8 +379,19 @@
       </div>
     </div>
 
-    
-    <!-- 05 Tentative
+    <!-- 05 Health4All -->
+    <div class="project-card card-rose">
+      <div class="project-media">
+          <div class="media-frame"><a href="health4all-summary.html"> <img src="img/logo.png" alt="Health4All" /></a></div>
+      </div>
+      <div class="project-text">
+        <div class="project-meta"><span class="num">05</span><span class="tag">Data &amp; Civic Tech</span></div>
+        <div class="project-title"><a href="health4all-summary.html">Health4All: Mapping Breast Cancer Data in King County</a></div>
+        <p class="project-desc">A civic-tech project visualizing breast cancer data across King County to surface disparities in access, screening, and outcomes. The team built an interactive web tool to help communities and decision-makers explore the data and advocate for more equitable health resources.</p>
+      </div>
+    </div>
+
+    <!-- 06 Tentative
     <div class="project-card card-ochre">
       <div class="project-media">
         <div class="placeholder">

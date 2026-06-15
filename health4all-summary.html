@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Health4All — Halle Hwang</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --paper:  #faf5ec;
+      --white:  #fff;
+      --ink:    #211e19;
+      --muted:  #6e655a;
+      --hair:   rgba(33,30,25,.14);
+
+      --plum:      #FFB5D0;
+      --plum-deep: #c75f86;
+      --plum-soft: #ffe6ef;
+      --card-ink:  #fdf6ea;
+
+      --sans:  'DM Sans', sans-serif;
+      --mono:  'DM Mono', monospace;
+      --serif: 'Cardo', serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--serif);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+    body::before {
+      content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 9999; opacity: .035;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(251,250,246,.9); backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--hair);
+      height: 71px; display: flex; align-items: center; padding: 0 clamp(20px, 4vw, 40px);
+    }
+    .nav-name,
+    .nav-name:link, .nav-name:visited, .nav-name:hover, .nav-name:focus, .nav-name:active {
+      font-family: var(--serif); font-size: 20px; color: var(--ink);
+      text-decoration: none; border-bottom: none;
+      display: inline-block; transform: rotate(-9.61deg); transform-origin: top left;
+      margin-right: auto; margin-top: 6px;
+    }
+    .nav-links { display: flex; gap: clamp(20px, 3vw, 40px); list-style: none; }
+    .nav-links a {
+      font-family: var(--serif); font-size: 16px; color: var(--ink); text-decoration: none;
+      position: relative; padding-bottom: 3px;
+    }
+    .nav-links a::after {
+      content: ""; position: absolute; left: 0; bottom: 0; width: 100%; height: 1px;
+      background: var(--ink); transform: scaleX(0); transform-origin: left; transition: transform .28s ease;
+    }
+    .nav-links a:hover::after { transform: scaleX(1); }
+    .nav-links a.active::after { transform: scaleX(1); }
+
+    /* ── LAYOUT ── */
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 0 clamp(24px, 6vw, 64px); }
+    .reading { max-width: 900px; }
+
+    .backlink {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--mono); font-size: 12px; letter-spacing: .16em; text-transform: uppercase;
+      color: var(--muted); text-decoration: none; margin: 36px 0 0;
+      transition: color .2s;
+    }
+    .backlink:hover { color: var(--plum-deep); }
+    .backlink span { transition: transform .2s; }
+    .backlink:hover span { transform: translateX(-3px); }
+
+    /* ── HERO ── */
+    .hero {
+      display: flex; flex-direction: column; gap: clamp(28px, 4vw, 44px);
+      padding: clamp(28px, 4vw, 40px) 0 clamp(48px, 7vw, 80px);
+    }
+    .eyebrow {
+      font-family: var(--mono); font-size: 12px; letter-spacing: .22em; text-transform: uppercase;
+      color: var(--plum-deep); margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-family: var(--serif); font-weight: 700; font-size: clamp(36px, 5.2vw, 60px);
+      line-height: 1.04; margin-bottom: 22px;
+    }
+    .dek {
+      font-family: var(--sans); font-weight: 300; font-size: clamp(16px, 1.6vw, 18px);
+      line-height: 1.65; color: #4a443b; max-width: 72ch;
+    }
+    .meta {
+      display: flex; flex-wrap: wrap; gap: 10px 18px; margin-top: 30px;
+      padding-top: 26px; border-top: 1px solid var(--hair);
+    }
+    .meta div { min-width: 0; }
+    .meta dt {
+      font-family: var(--mono); font-size: 10.5px; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 5px;
+    }
+    .meta dd { font-family: var(--sans); font-size: 14px; font-weight: 400; color: var(--ink); }
+    .meta > div { padding-right: 18px; border-right: 1px solid var(--hair); }
+    .meta > div:last-child { border-right: 0; padding-right: 0; }
+
+    /* ── SECTIONS ── */
+    section.block { padding: clamp(38px, 5vw, 56px) 0; border-top: 1px solid var(--hair); }
+    .block-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 24px; }
+    .step-num {
+      font-family: var(--mono); font-size: 13px; font-weight: 500; color: var(--plum);
+      letter-spacing: .05em; padding-top: 4px;
+    }
+    .block h2 { font-family: var(--serif); font-weight: 700; font-size: clamp(26px, 3.2vw, 34px); line-height: 1.1; }
+    .block p {
+      font-family: var(--sans); font-weight: 300; font-size: 16px; line-height: 1.72; color: #3c372f;
+      margin-bottom: 16px;
+    }
+    .block p:last-child { margin-bottom: 0; }
+
+    /* pill list */
+    .pills { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+    .pills span {
+      font-family: var(--sans); font-size: 14px; font-weight: 400; color: var(--plum-deep);
+      background: var(--plum-soft); border: 1px solid rgba(199,95,134,.25);
+      padding: 8px 16px; border-radius: 999px;
+    }
+
+    /* checklist */
+    .check { list-style: none; margin: 6px 0 0; display: grid; gap: 12px; max-width: 760px; }
+    .check li {
+      font-family: var(--sans); font-weight: 300; font-size: 15.5px; line-height: 1.55; color: #3c372f;
+      padding-left: 30px; position: relative;
+    }
+    .check li::before {
+      content: ""; position: absolute; left: 0; top: 7px;
+      width: 16px; height: 9px; border-left: 2px solid var(--plum); border-bottom: 2px solid var(--plum);
+      transform: rotate(-45deg);
+    }
+    .check li strong { font-weight: 500; color: var(--ink); }
+
+    /* ── LINK CARDS ── */
+    .links { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 8px; }
+    .link-card {
+      display: flex; flex-direction: column; gap: 10px;
+      background: var(--white); border: 1px solid var(--hair); border-radius: 18px;
+      padding: 26px 26px 28px; text-decoration: none; color: var(--ink);
+      box-shadow: 0 18px 40px -30px rgba(33,30,25,.5);
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    }
+    .link-card:hover { transform: translateY(-4px); box-shadow: 0 26px 50px -28px rgba(33,30,25,.45); border-color: rgba(199,95,134,.4); }
+    .link-card .kicker {
+      font-family: var(--mono); font-size: 11px; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--plum-deep);
+    }
+    .link-card .lc-title {
+      font-family: var(--serif); font-weight: 700; font-size: 22px; line-height: 1.15;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .link-card .lc-title .arrow { transition: transform .2s; }
+    .link-card:hover .lc-title .arrow { transform: translate(2px,-2px); }
+    .link-card p {
+      font-family: var(--sans); font-weight: 300; font-size: 14.5px; line-height: 1.6; color: #4a443b; margin: 0;
+    }
+
+    /* ── INTERACTIVE EMBED ── */
+    .proto-embed {
+      margin-top: 28px; position: relative; width: 100%; aspect-ratio: 16 / 9;
+      border: 8px solid var(--white); border-radius: 18px; overflow: hidden;
+      background: var(--plum-soft);
+      box-shadow: 0 30px 60px -34px rgba(33,30,25,.45);
+    }
+    .proto-embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+    .proto-foot {
+      display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-top: 16px;
+    }
+    .proto-note { font-family: var(--sans); font-weight: 300; font-size: 14px; color: var(--muted); margin: 0; }
+    .proto-link {
+      font-family: var(--mono); font-size: 12px; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--plum-deep); text-decoration: none; display: inline-flex; align-items: center; gap: 7px;
+      margin-left: auto;
+    }
+    .proto-link span { transition: transform .2s; }
+    .proto-link:hover span { transform: translate(2px,-2px); }
+
+    /* result block */
+    .result {
+      background: var(--plum); color: var(--ink); border-radius: 24px;
+      padding: clamp(40px, 6vw, 64px); margin: clamp(48px, 7vw, 80px) 0;
+    }
+    .result .eyebrow { color: var(--plum-deep); }
+    .result h2 { font-family: var(--serif); font-weight: 700; font-size: clamp(28px, 3.6vw, 40px); line-height: 1.08; margin-bottom: 22px; }
+    .result p { font-family: var(--sans); font-weight: 300; font-size: 17px; line-height: 1.75; color: #4a2733; margin-bottom: 16px; max-width: 62ch; }
+    .result p:last-child { margin-bottom: 0; }
+
+    /* footer nav between projects */
+    .pagefoot {
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;
+      padding: 40px 0 72px;
+    }
+    .pagefoot a {
+      font-family: var(--mono); font-size: 13px; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--ink); text-decoration: none; display: inline-flex; gap: 8px; align-items: center;
+      transition: color .2s;
+    }
+    .pagefoot a:hover { color: var(--plum-deep); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 820px) {
+      .links { grid-template-columns: 1fr; }
+      .proto-embed { aspect-ratio: 4 / 3; }
+      .proto-link { margin-left: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-name">Halle Hwang</a>
+    <ul class="nav-links">
+      <li><a href="copenhagen2.html">Copenhagen</a></li>
+      <li><a href="yosemite2.html">Yosemite</a></li>
+      <li><a href="art.html">Art</a></li>
+    </ul>
+  </nav>
+
+  <div class="wrap">
+    <a href="index.html#projects" class="backlink"><span>←</span> All projects</a>
+
+    <!-- HERO -->
+    <header class="hero">
+      <div>
+        <div class="eyebrow">Project 05 · Data &amp; Civic Tech</div>
+        <h1>Health4All: Mapping Breast Cancer Data in King County</h1>
+        <p class="dek">A data-driven project that visualizes breast cancer screening and outcomes across King County,
+          spotlighting disparities in access so communities and decision-makers can advocate for more equitable health resources.</p>
+        <dl class="meta">
+          <div>
+            <dt>Type</dt>
+            <dd>Team project · Data visualization</dd>
+          </div>
+          <div>
+            <dt>Region</dt>
+            <dd>King County, WA</dd>
+          </div>
+          <div>
+            <dt>Deliverable</dt>
+            <dd>Interactive web tool + final presentation</dd>
+          </div>
+        </dl>
+      </div>
+    </header>
+
+    <!-- 01 OVERVIEW -->
+    <section class="block">
+      <div class="block-head"><span class="step-num">01</span><h2>Overview</h2></div>
+      <div class="reading">
+        <p>Health4All is a civic-technology project focused on making breast cancer data for King County easier to
+          understand and act on. Public health data exists, but it is often scattered, dense, and hard for everyday
+          community members and advocates to navigate.</p>
+        <p>Our goal was to bring that data together into a clear, interactive experience that highlights where gaps in
+          screening, access, and outcomes exist, so that the people closest to the problem can use the data to push for
+          change.</p>
+      </div>
+    </section>
+
+    <!-- 02 FOCUS -->
+    <section class="block">
+      <div class="block-head"><span class="step-num">02</span><h2>What we focused on</h2></div>
+      <div class="reading">
+        <p>We centered the project on equity-- not just showing the numbers, but revealing the disparities behind them.</p>
+      </div>
+      <div class="pills">
+        <span>Screening rates</span>
+        <span>Access to care</span>
+        <span>Geographic disparities</span>
+        <span>Health equity</span>
+        <span>Community advocacy</span>
+      </div>
+      <ul class="check" style="margin-top:24px;">
+        <li>Make breast cancer data <strong>approachable</strong> for non-technical audiences.</li>
+        <li>Map outcomes <strong>geographically across King County</strong> to expose where disparities concentrate.</li>
+        <li>Give advocates and decision-makers <strong>evidence they can point to</strong> when requesting resources.</li>
+      </ul>
+    </section>
+
+    <!-- 03 RESEARCH -->
+    <section class="block">
+      <div class="block-head"><span class="step-num">03</span><h2>Interviews, surveys &amp; user feedback</h2></div>
+      <div class="reading">
+        <p>To make sure the tool actually served the people it was meant for, we grounded the design in research rather
+          than assumptions. Throughout this project, we conducted over 30 interviews and 60 surveys with potential users, then ran their feedback back into
+          the product as it evolved.</p>
+      </div>
+      <ul class="check" style="margin-top:18px;">
+        <li>Ran <strong>interviews and surveys</strong> to learn how community members, advocates, and decision-makers actually look for and use health data.</li>
+        <li>Used those insights to shape <strong>which metrics to surface</strong> and how to present them clearly for non-technical audiences.</li>
+        <li>Gathered <strong>user feedback on early versions</strong> of the tool and iterated on the maps, navigation, and wording to make the data easier to interpret.</li>
+      </ul>
+      <div class="reading" style="margin-top:24px;">
+        <p>This feedback loop kept the project focused on real need, prioritizing clarity and usefulness over simply
+          displaying as much data as possible.</p>
+      </div>
+    </section>
+
+    <!-- 04 EXPLORE -->
+    <section class="block">
+      <div class="block-head"><span class="step-num">04</span><h2>Explore the project</h2></div>
+      <div class="reading">
+        <p>View the live interactive tool and read through our final presentation below.</p>
+      </div>
+      <div class="links">
+        <a class="link-card" href="https://health4all-frontend.onrender.com/#/" target="_blank" rel="noopener">
+          <span class="kicker">Live tool</span>
+          <span class="lc-title">Interactive website <span class="arrow">↗</span></span>
+          <p>Explore the live Health4All web application and interact with the breast cancer data for King County.</p>
+        </a>
+        <a class="link-card" href="https://bpb-us-e1.wpmucdn.com/sites.uw.edu/dist/4/32719/files/formidable/2/2025-05-23/Final-Presentation-Health4All-42f78a.pdf" target="_blank" rel="noopener">
+          <span class="kicker">Presentation</span>
+          <span class="lc-title">Final presentation (PDF) <span class="arrow">↗</span></span>
+          <p>Walk through the team's research, approach, and findings in the final project presentation.</p>
+        </a>
+      </div>
+
+      <div class="proto-embed">
+        <iframe
+          src="https://health4all-frontend.onrender.com/#/"
+          title="Health4All — interactive web tool"
+          allowfullscreen
+          loading="lazy"></iframe>
+      </div>
+      <div class="proto-foot">
+        <p class="proto-note">The live tool is embedded above and may take a moment to load.</p>
+        <a class="proto-link" href="https://health4all-frontend.onrender.com/#/" target="_blank" rel="noopener">Open full-screen <span>↗</span></a>
+      </div>
+    </section>
+
+    <!-- RESULT -->
+    <section class="result">
+      <div class="eyebrow">The outcome</div>
+      <h2>Turning public health data into a tool for change.</h2>
+      <p>Health4All takes data that usually lives in spreadsheets and reports and turns it into something communities can
+        actually explore. By mapping breast cancer outcomes across King County, the project makes disparities visible and
+        gives advocates a clearer case for where resources are needed most.</p>
+    </section>
+
+    <!-- FOOTER NAV -->
+    <div class="pagefoot">
+      <a href="index.html#projects"><span>←</span> Back to all projects</a>
+      <a href="mailto:halle7515@gmail.com">Get in touch →</a>
+    </div>
+
+  </div>
+
+</body>
+</html>
